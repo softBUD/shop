@@ -1,4 +1,6 @@
 .App {
+  margin: 0 auto;
+  overflow-x: hidden;
 }
 
 .shop-nav {
@@ -18,4 +20,11 @@ button {
   border-style: none;
   background-color: black;
   color: white;
+}
+
+.modal {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  background: #eee;
 }
