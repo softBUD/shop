@@ -5,32 +5,65 @@ import leaf from './images/leaf.jpg';
 import bottle1 from './images/bottle1.jpg';
 import bottle2 from './images/bottle2.jpg';
 import bottle3 from './images/bottle3.jpg';
-import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col } from 'react-bootstrap';
+import bottle4 from './images/bottle4.jpg';
+import bottle5 from './images/bottle5.jpg';
+import bottle6 from './images/bottle6.jpg';
+import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
+import { Link, Route, Switch } from 'react-router-dom';
+import data from './data.js';
 import './App.css';
 
 function App() {
+  let [product, productState] = useState(data);
+  let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6])
+  let [home, homeState] = useState(true);
+  let [login, loginState] = useState(false);
   return (
   <div className="App">
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand href="#home" className='logo'>Cosme</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">product</Nav.Link>
-            <NavDropdown title="Log in" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-    <Carousel fade>
+    <Route exact path="/">
+    <Navmenu className="topMenu"></Navmenu>
+    <Home proImg={proImg} product={product}></Home>
+    </Route>
+    <Route exact path="/login">
+    <Navmenu></Navmenu>
+    <Login></Login>
+    </Route>
+</div>
+
+  );
+}
+
+
+function Navmenu() {
+  return(
+    <div>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand className='logo' href="/">Cosme</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#link">product</Nav.Link>
+              <NavDropdown title="menu" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/login">log in</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">submit</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">cart</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">log out</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
+  )
+
+}
+
+function Home (props) {
+  return (
+    <div className='homeContainer'>
+      <Carousel fade>
       <Carousel.Item>
         <img
           className="carFirst"
@@ -67,29 +100,42 @@ function App() {
     </Carousel>
     <Container className='listContainer'>
       <Row className='listWrap'>
-        <Col className='listContent'>
-          <img src={bottle1} alt="bottle1" className='listImg'/>
-          <div>nora</div>
-          <div>35000</div>
-        </Col>
-        <Col className='listContent'>
-        <img src={bottle2} alt="bottle2" className='listImg'/>
-        <div>scruffy</div>
-        <div>20000</div>
-        </Col>
-        <Col className='listContent'>
-          <img src={bottle3} alt="bottle3" className='listImg'/>
-          <div>hella</div>
-          <div>18000</div>
-        </Col>
+        {
+          props.product.map(function(a,i) {
+            return (
+              <Col className='listContent'key={i}>
+                <img className="listImg" src={props.proImg[i]} alt="productImages" />
+                <div>{props.product[i].title}</div>
+                <div>{props.product[i].price}</div>
+              </Col>
+            )
+          })
+        }
       </Row>
     </Container>
-
-
-</div>
-
-  );
+    </div>
+  )
 }
 
-
+function Login () {
+  return (
+    <Form className='loginForm'>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>ID</Form.Label>
+        <Form.Control className='formBox' type="email" placeholder="Enter id" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control className='formBox' type="password" placeholder="Password" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+        <Button className="loginButton" variant="primary" type="submit">
+        Submit
+        </Button>
+      </Form.Group>
+      
+    </Form>
+  )
+}
 export default App;
