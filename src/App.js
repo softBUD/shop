@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom'
 import lilac from './images/lilac.jpg';
 import fruits from './images/fruits.jpg';
 import leaf from './images/leaf.jpg';
@@ -11,6 +12,7 @@ import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
 import { Link, Route, Switch } from 'react-router-dom';
 import data from './data.js';
+import Detail from './detail.js';
 import './App.css';
 
 function App() {
@@ -21,12 +23,16 @@ function App() {
   return (
   <div className="App">
     <Route exact path="/">
-    <Navmenu className="topMenu"></Navmenu>
-    <Home proImg={proImg} product={product}></Home>
+      <Navmenu className="topMenu"></Navmenu>
+      <Home proImg={proImg} product={product}></Home>
     </Route>
     <Route exact path="/login">
-    <Navmenu></Navmenu>
-    <Login></Login>
+      <Navmenu></Navmenu>
+      <Login></Login>
+    </Route>
+    <Route exact path="/detail/:id">
+      <Navmenu className="topMenu"></Navmenu>
+      <Detail product={product} proImg={proImg}></Detail>
     </Route>
 </div>
 
@@ -39,11 +45,11 @@ function Navmenu() {
     <div>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand className='logo' href="/">Cosme</Navbar.Brand>
+          <Navbar.Brand className='logo'><Link to="/" className='linkNone' id='cosme'>Cosme</Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#link">product</Nav.Link>
+              <Nav.Link><Link to="/" className='linkNone'>product</Link></Nav.Link>
               <NavDropdown title="menu" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/login">log in</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">submit</NavDropdown.Item>
@@ -103,8 +109,8 @@ function Home (props) {
         {
           props.product.map(function(a,i) {
             return (
-              <Col className='listContent'key={i}>
-                <img className="listImg" src={props.proImg[i]} alt="productImages" />
+              <Col className='listContent' key={props.product[i].id}>
+                <Link to={'/detail/'+i}><img className="listImg" src={props.proImg[i]} alt="productImages" /></Link>
                 <div>{props.product[i].title}</div>
                 <div>{props.product[i].price}</div>
               </Col>
