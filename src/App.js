@@ -17,9 +17,7 @@ import './App.css';
 
 function App() {
   let [product, productState] = useState(data);
-  let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6])
-  let [home, homeState] = useState(true);
-  let [login, loginState] = useState(false);
+  let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6]);
   return (
   <div className="App">
     <Route exact path="/">
@@ -49,7 +47,7 @@ function Navmenu() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link><Link to="/" className='linkNone'>product</Link></Nav.Link>
+              <Nav.Link as={Link} to="/" className='linkNone'>product</Nav.Link>
               <NavDropdown title="menu" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/login">log in</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">submit</NavDropdown.Item>
