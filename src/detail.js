@@ -13,6 +13,7 @@ import {Container,Row,Col} from 'react-bootstrap';
 
 
 function Detail (props) {
+    let [inputData, inputDataState] = useState(''); 
     let [ad,adState] = useState(true);
     let { id } = useParams(); //사용자가 입력한 url 파라미터들
     let findProduct = props.product.find(function(product) {
@@ -22,7 +23,9 @@ function Detail (props) {
 
     useEffect(()=>{
       setTimeout(()=>{adState(false)},2000);
-    });
+      console.log("실행");
+      //return function 함수명() {코드}는 컴포넌트 사라질때 실행됨
+    },[ad]); //자원낭비를 막기위해 특정 state가 변경될때만 실행
 
     return(
       <div className='container'>
@@ -39,6 +42,8 @@ function Detail (props) {
             }
           </Row>
         </Container>
+        {inputData}
+        <input type="text" onChange={(e)=>{let i = inputDataState(e.target.value)}}/>
       </div>
     )
   }

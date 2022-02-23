@@ -13,9 +13,12 @@ import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from '
 import { Link, Route, Switch } from 'react-router-dom';
 import data from './data.js';
 import Detail from './detail.js';
+import axios from 'axios';
 import './App.css';
+import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
+  let [more,moreState] = useState(false);
   let [product, productState] = useState(data);
   let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6]);
   return (
@@ -32,6 +35,14 @@ function App() {
       <Navmenu className="topMenu"></Navmenu>
       <Detail product={product} proImg={proImg}></Detail>
     </Route>
+    <button className='btn' onClick={()=>{ 
+      axios.get('https://codingapple1.github.io/shop/data2.json')
+      .then((result)=> {
+        productState([...product, ...result.data])
+
+      })
+      .catch(()=>{/*요청실패시 실행*/})
+      }}>더보기</button>
 </div>
 
   );
@@ -138,7 +149,6 @@ function Login () {
         Submit
         </Button>
       </Form.Group>
-      
     </Form>
   )
 }
