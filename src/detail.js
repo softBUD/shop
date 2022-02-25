@@ -9,16 +9,19 @@ import bottle6 from './images/bottle6.jpg';
 import { useHistory,useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong} from '@fortawesome/free-solid-svg-icons';
-import {Container,Row,Col} from 'react-bootstrap';
+import {Container,Row,Col,Nav} from 'react-bootstrap';
+import './App.css';
 
 
 function Detail (props) {
+    
     let [inputData, inputDataState] = useState(''); 
     let [ad,adState] = useState(true);
     let { id } = useParams(); //사용자가 입력한 url 파라미터들
     let findProduct = props.product.find(function(product) {
         return product.id == id //조건이 참인 데이터만 변수에 저장
     });
+    let [clickTab,clickTabState] = useState(0);
     let history = useHistory();
 
     useEffect(()=>{
@@ -30,22 +33,44 @@ function Detail (props) {
     return(
       <div className='container'>
         
-        <Container>
-          <Row>
-            <Col key={1}><img className="listImg" src={props.proImg[findProduct.id]} alt={findProduct.id} /></Col>
-            <Col key={2}>{findProduct.title}</Col>
-            <Col key={3}>{findProduct.price}</Col>
-            <Col key={4}><FontAwesomeIcon icon={faLeftLong} className="backButton" onClick={()=> {history.goBack();}}/>back</Col>
-            { ad === true ?
-              <Col key={5} className="ad">광고창</Col> 
-              : null 
-            }
-          </Row>
-        </Container>
-        {inputData}
-        <input type="text" onChange={(e)=>{let i = inputDataState(e.target.value)}}/>
+        <div className='Container'>
+          <div className='detailRow'>
+            <img className="detailListImg" src={props.proImg[findProduct.id]} alt={findProduct.id} />
+            <div className='findProBox'>
+              <div key={2} className="findProTitle">{findProduct.title}</div>
+              <div key={3} className="findProPrice">{findProduct.price}</div>
+              <div key={4}><FontAwesomeIcon icon={faLeftLong} className="backButton" onClick={()=> {history.goBack();}}/>back</div>
+              { ad === true ?
+                <div key={5} className="ad">광고창</div> 
+                : null 
+              }
+            </div>
+          </div>
+        </div>
+        <div className='tabsContainer'>
+          <Nav variant="tabs" defaultActiveKey="link-0">
+            <Nav.Item>
+              <Nav.Link eventKey="link-0" onClick={()=>{ clickTabState(0)}}>Active</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="link-1" onClick={()=> {clickTabState(1)}}>Option 2</Nav.Link>
+            </Nav.Item>
+          </Nav>
+          <TabContent clikTab={clickTab} />
+        </div>
+
+       
+
       </div>
     )
+  }
+  function TabContent(props) {
+    if(props.clikTab === 0) {
+      return <div>0번째 내용입니다</div>
+    } else if(props.clikTab === 1) {
+      return <div>1번째 내용입니다.</div>
+    }
+    
   }
 
   export default Detail;

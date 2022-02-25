@@ -44,15 +44,7 @@ function App() {
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
       <Route exact path="/add"></Route>
-      <button className='btn' onClick={()=>{ 
-        axios.get('https://codingapple1.github.io/shop/data2.json')
-        .then((result)=> {
-          productState([...product, ...result.data])
-
-        })
-        .catch(()=>{/*요청실패시 실행*/})
-        }}>더보기</button>
-      </Switch>
+    </Switch>
 </div>
 
   );
@@ -135,7 +127,7 @@ function Home (props) {
                   <Link to={'/detail/'+i}><img className="listImg" src={props.proImg[i]} alt="productImages" /></Link>
                   <div>{props.product[i].title}</div>
                   <div>{props.product[i].price}</div>
-                  <div>{inven[i]}</div>
+                  <div>{"재고 : "+ inven[i]}</div>
                 </Col>
               )
             })
