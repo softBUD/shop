@@ -32,7 +32,7 @@ function Detail (props) {
         
         <Container>
           <Row>
-            <Col key={1}><img className="listImg" src={props.proImg[id]} alt={id} /></Col>
+            <Col key={1}><img className="listImg" src={props.proImg[findProduct.id]} alt={findProduct.id} /></Col>
             <Col key={2}>{findProduct.title}</Col>
             <Col key={3}>{findProduct.price}</Col>
             <Col key={4}><FontAwesomeIcon icon={faLeftLong} className="backButton" onClick={()=> {history.goBack();}}/>back</Col>

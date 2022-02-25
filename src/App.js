@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom'
 import lilac from './images/lilac.jpg';
 import fruits from './images/fruits.jpg';
@@ -13,36 +13,46 @@ import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from '
 import { Link, Route, Switch } from 'react-router-dom';
 import data from './data.js';
 import Detail from './detail.js';
+import Login from './login.js';
 import axios from 'axios';
 import './App.css';
 import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
 
+
+let invenContext = React.createContext(); //범위를생성
+
 function App() {
   let [more,moreState] = useState(false);
+  let [inven,invenState] = useState([50,60,70,80,90,100]);
   let [product, productState] = useState(data);
   let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6]);
   return (
   <div className="App">
-    <Route exact path="/">
-      <Navmenu className="topMenu"></Navmenu>
-      <Home proImg={proImg} product={product}></Home>
-    </Route>
-    <Route exact path="/login">
-      <Navmenu></Navmenu>
-      <Login></Login>
-    </Route>
-    <Route exact path="/detail/:id">
-      <Navmenu className="topMenu"></Navmenu>
-      <Detail product={product} proImg={proImg}></Detail>
-    </Route>
-    <button className='btn' onClick={()=>{ 
-      axios.get('https://codingapple1.github.io/shop/data2.json')
-      .then((result)=> {
-        productState([...product, ...result.data])
+    <Switch>
+      <Route exact path="/">
+        <Navmenu className="topMenu"></Navmenu>
+        <invenContext.Provider value={inven}> {/*이 범위안에서 Context를 자유롭게 사용할수있음*/}
+          <Home proImg={proImg} product={product}></Home>
+        </invenContext.Provider>
+      </Route>
+      <Route path="/login" element={<Login />}>
+        <Navmenu></Navmenu>
+        <Login></Login>
+      </Route>
+      <Route exact path="/detail/:id">
+        <Navmenu className="topMenu"></Navmenu>
+        <Detail product={product} proImg={proImg}></Detail>
+      </Route>
+      <Route exact path="/add"></Route>
+      <button className='btn' onClick={()=>{ 
+        axios.get('https://codingapple1.github.io/shop/data2.json')
+        .then((result)=> {
+          productState([...product, ...result.data])
 
-      })
-      .catch(()=>{/*요청실패시 실행*/})
-      }}>더보기</button>
+        })
+        .catch(()=>{/*요청실패시 실행*/})
+        }}>더보기</button>
+      </Switch>
 </div>
 
   );
@@ -76,6 +86,9 @@ function Navmenu() {
 }
 
 function Home (props) {
+
+  let inven = useContext(invenContext);
+
   return (
     <div className='homeContainer'>
       <Carousel fade>
@@ -113,43 +126,26 @@ function Home (props) {
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
-    <Container className='listContainer'>
-      <Row className='listWrap'>
-        {
-          props.product.map(function(a,i) {
-            return (
-              <Col className='listContent' key={props.product[i].id}>
-                <Link to={'/detail/'+i}><img className="listImg" src={props.proImg[i]} alt="productImages" /></Link>
-                <div>{props.product[i].title}</div>
-                <div>{props.product[i].price}</div>
-              </Col>
-            )
-          })
-        }
-      </Row>
-    </Container>
+      <Container className='listContainer'>
+        <Row className='listWrap'>
+          {
+            props.product.map(function(a,i) {
+              return (
+                <Col className='listContent' key={props.product[i].id}>
+                  <Link to={'/detail/'+i}><img className="listImg" src={props.proImg[i]} alt="productImages" /></Link>
+                  <div>{props.product[i].title}</div>
+                  <div>{props.product[i].price}</div>
+                  <div>{inven[i]}</div>
+                </Col>
+              )
+            })
+          }
+        </Row>
+        
+      </Container>
     </div>
   )
 }
 
-function Login () {
-  return (
-    <Form className='loginForm'>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>ID</Form.Label>
-        <Form.Control className='formBox' type="email" placeholder="Enter id" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control className='formBox' type="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-        <Button className="loginButton" variant="primary" type="submit">
-        Submit
-        </Button>
-      </Form.Group>
-    </Form>
-  )
-}
+
 export default App;
