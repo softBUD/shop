@@ -1,15 +1,26 @@
-const express = require('express');
-const path = require('path');
-const app = express();
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser');
+const port = 5000
 
-const http = require('http').createServer(app);
-http.listen(8080, function () {
-    console.log('listening on 8080')
+//application /x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: true}));
+//application/json
+app.use(bodyParser.json());
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://softBUD:<813813as>@shop.q8acx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
 });
 
-app.use('/',express.static( path.join(__dirname, 'public')))
-app.use(express.json());
+app.get('/',(req,res) => res.send("Hello world!"))
+app.response('/add', (req,res)=> {
 
-app.get('/', function(req,res){
-    res.sendFile(path.join(__dirname, 'public/index.html'))
+
+
 })
+app.listen(port, () => console.log(`app listening on port ${port}`));
