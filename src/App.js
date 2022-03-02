@@ -11,7 +11,7 @@ import bottle5 from './images/bottle5.jpg';
 import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
 import { Link, Route, Switch } from 'react-router-dom';
-// import Landing from './landing.js';
+import Landing from './landing.js';
 import data from './data.js';
 import Detail from './detail.js';
 import Login from './login.js';
@@ -35,6 +35,7 @@ function App() {
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
       <Route exact path="/add"></Route>
+      <Route exact paht="/api/landing"><Landing></Landing></Route>
     </Switch>
 </div>
 

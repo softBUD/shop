@@ -3,16 +3,16 @@ require('dotenv').config();
 const express = require('express')
 const app = express();
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+
 const port = process.env.PORT || 5000;
 
 
 
 app.use(express.json());
-//application /x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true}));
-//application/json
-app.use(bodyParser.json());
+
+app.use(express.urlencoded({extended:true}))
+
+
 
 const URI = process.env.MONGO_URI;
 mongoose
