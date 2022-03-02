@@ -11,6 +11,7 @@ import bottle5 from './images/bottle5.jpg';
 import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
 import { Link, Route, Switch } from 'react-router-dom';
+// import Landing from './landing.js';
 import data from './data.js';
 import Detail from './detail.js';
 import Login from './login.js';
@@ -19,8 +20,6 @@ import './App.css';
 import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
 
 
-let invenContext = React.createContext(); //범위를생성
-
 function App() {
   let [more,moreState] = useState(false);
   let [inven,invenState] = useState([50,60,70,80,90,100]);
@@ -28,19 +27,11 @@ function App() {
   let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6]);
   return (
   <div className="App">
+    <Navmenu className="topMenu"></Navmenu>
     <Switch>
-      <Route exact path="/">
-        <Navmenu className="topMenu"></Navmenu>
-        <invenContext.Provider value={inven}> {/*이 범위안에서 Context를 자유롭게 사용할수있음*/}
-          <Home proImg={proImg} product={product}></Home>
-        </invenContext.Provider>
-      </Route>
-      <Route path="/login" element={<Login />}>
-        <Navmenu></Navmenu>
-        <Login></Login>
-      </Route>
+      <Route exact path="/"><Home proImg={proImg} product={product}></Home></Route>
+      <Route exact path="/login" component={Login}/>
       <Route exact path="/detail/:id">
-        <Navmenu className="topMenu"></Navmenu>
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
       <Route exact path="/add"></Route>
@@ -63,7 +54,7 @@ function Navmenu() {
               <Nav.Link as={Link} to="/" className='linkNone'>product</Nav.Link>
               <NavDropdown title="menu" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/login">log in</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">submit</NavDropdown.Item>
+                <NavDropdown.Item href="/signup">sign up</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">cart</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">log out</NavDropdown.Item>
@@ -79,7 +70,6 @@ function Navmenu() {
 
 function Home (props) {
 
-  let inven = useContext(invenContext);
 
   return (
     <div className='homeContainer'>
@@ -127,7 +117,6 @@ function Home (props) {
                   <Link to={'/detail/'+i}><img className="listImg" src={props.proImg[i]} alt="productImages" /></Link>
                   <div>{props.product[i].title}</div>
                   <div>{props.product[i].price}</div>
-                  <div>{"재고 : "+ inven[i]}</div>
                 </Col>
               )
             })

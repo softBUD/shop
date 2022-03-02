@@ -89,3 +89,17 @@
 .tabsContainer {
   display: block;
 }
+
+#signUpForm {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-top: 20px;
+}
+
+#signUpBtn {
+  margin-top: 30px;
+  border: none;
+  border-radius: 10px;
+}

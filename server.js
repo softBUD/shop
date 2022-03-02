@@ -1,26 +1,29 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser');
-const port = 5000
 
+require('dotenv').config();
+const express = require('express')
+const app = express();
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const port = process.env.PORT || 5000;
+
+
+
+app.use(express.json());
 //application /x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: true}));
 //application/json
 app.use(bodyParser.json());
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://softBUD:<813813as>@shop.q8acx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
+const URI = process.env.MONGO_URI;
+mongoose
+  .connect(URI)
+  .then(() => console.log('MongoDB Connected!!'))
+  .catch((e) => console.log(e));
+
+app.get('/', (req, res) => {
+  res.send('Hello world!!');
 });
-
-app.get('/',(req,res) => res.send("Hello world!"))
-app.response('/add', (req,res)=> {
-
-
-
-})
-app.listen(port, () => console.log(`app listening on port ${port}`));
+app.get('/api/landing',(req,res)=> res.send("hello!!!!"));
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
