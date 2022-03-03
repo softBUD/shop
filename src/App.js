@@ -11,10 +11,11 @@ import bottle5 from './images/bottle5.jpg';
 import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
 import { Link, Route, Switch } from 'react-router-dom';
-import Landing from './landing.js';
+import Landing from './views/landing.js';
 import data from './data.js';
-import Detail from './detail.js';
-import Login from './login.js';
+import Detail from './views/detail.js';
+import Login from './views/login.js';
+//import SignUp from './views/signUp.js';
 import axios from 'axios';
 import './App.css';
 import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
@@ -34,6 +35,7 @@ function App() {
       <Route exact path="/detail/:id">
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
+      {/* <Route exact path="/signUp"><SignUp></SignUp></Route> */}
       <Route exact path="/add"></Route>
       <Route exact paht="/api/landing"><Landing></Landing></Route>
     </Switch>
