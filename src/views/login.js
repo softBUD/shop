@@ -3,7 +3,7 @@ import {Form, Button} from 'react-bootstrap';
 
 function Login () {
     return (
-      <Form className='loginForm' action="" method="POST">
+      <Form className='loginForm' action="/api/user/login" method="POST">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>ID</Form.Label>
           <Form.Control className='formBox' type="email" placeholder="Enter id" />

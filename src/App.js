@@ -31,12 +31,12 @@ function App() {
     <Navmenu className="topMenu"></Navmenu>
     <Switch>
       <Route exact path="/"><Home proImg={proImg} product={product}></Home></Route>
-      <Route exact path="/login" component={Login}/>
+      <Route exact path="/api/user/login"/>
       <Route exact path="/detail/:id">
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
       {/* <Route exact path="/signUp"><SignUp></SignUp></Route> */}
-      <Route exact path="/add"></Route>
+      <Route exact path="/api/user/signup"></Route>
       <Route exact paht="/api/landing"><Landing></Landing></Route>
     </Switch>
 </div>

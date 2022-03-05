@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { dblClick } = require('@testing-library/user-event/dist/click');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 const userSchema = mongoose.Schema({
@@ -14,7 +13,7 @@ const userSchema = mongoose.Schema({
         type: String,
         minlength: 5
         },
-    id: {
+    userName: {
         type:String,
         minlength: 4,
         maxlength: 15,
@@ -60,7 +59,7 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
     //사용자가 입력한 비밀번호를 db에 저장된 비밀번호와 비교
     //this.password = user스키마의 비밀번호
     bcrypt.compare(plainPassword, this.password, function (err, isMatch) {
-        if(err) return cb(err),
+        if(err) return cb(err);
         cb(null,isMatch)
     })
 }
@@ -76,7 +75,7 @@ userSchema.methods.generateToken = function(cb) {
 
     user.token = token
     user.save(function(err,user) {
-        if(err) return cb(err)
+        if(err) return cb(err);
         cb(null, user)
     })
 }
