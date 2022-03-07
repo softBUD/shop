@@ -1,4 +1,4 @@
-const { User } = require('../models/User');
+const { User } = require('../src/models/user');
 
 let auth = (req, res, next) => {
     //인증 처리를 하는곳 
@@ -6,16 +6,20 @@ let auth = (req, res, next) => {
 
     let token = req.cookies.x_auth;
     // 토큰을 복호화 한후  유저를 찾는다.
+
+   
     User.findByToken(token, (err, user) => {
         if (err) throw err;
         if (!user) return res.json({ isAuth: false, error: true })
 
-
-        // console.log('userh', user)
-
         req.token = token;
         req.user = user;
-        next();
+        next(); 
+        //req를 넣어줌으로써 server.js에서 사용가능
+
+
+        //유저가 있으면 인증 ok
+
     })
 }
 

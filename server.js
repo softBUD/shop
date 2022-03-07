@@ -6,6 +6,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const {User} = require('./src/models/user');
 const cookieParser = require('cookie-parser');
+const {auth} = require('./middelware/auth');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 
@@ -57,18 +58,33 @@ app.post('/api/user/login',(req,res) => {
       if(!isMatch)
       return res.json({ loginSuccess: false, message:"비밀번호가 틀렸습니다."})
 
-      user.generateToken((err,user)=> {
+    user.generateToken((err,user)=> {
         if(err) return res.status(400).send(err);
         //토큰을 저장한다.
+      res.cookie("x_auth",user.token)
+      .status(200)
+      .json({loginSuccess:true, userId: user._id})
         
 
       })
     })
   })
-
-
 })
 
+app.get('api/user/auth',auth,(req,res) => {
+  //미들웨어를 통과해오면 auth가 true라는 뜻이다.
+  res.status(200).json({
+    //role이 0 = 일반유저 0이 아니면 관리자
+    _id: req.user._id,
+    isAdmin: req.user.role === 0 ?false : true,
+    isAuth:true,
+    email:req.user.email,
+    userName:req.user.userName,
+    role:req.user.role,
+    image:req.user.image
+  })
+
+})
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

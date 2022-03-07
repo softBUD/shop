@@ -35,7 +35,7 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', function(next) {
     //비밀번호를 암호화시킴
-    var user = this;
+    let user = this;
 
     if(user.isModified('password')) {
         //비밀번호를 변경할때만 해당 부분 실행
@@ -65,9 +65,9 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
 }
 
 userSchema.methods.generateToken = function(cb) {
-    var user = this;
-
-    var token = jwt.sign(user._id,  'secretToken')
+    let user = this;
+    
+    let token = jwt.sign(user._id.toJSON(),  'secretToken')
 
     // user._id + 'secretToken' = token
     // ->
@@ -78,6 +78,24 @@ userSchema.methods.generateToken = function(cb) {
         if(err) return cb(err);
         cb(null, user)
     })
+}
+
+userSchema.statics.findByToken = function(token,cb) {
+    let user = this;
+
+    //user._id + '' = token
+    //토큰을 decode한다.
+    jwt.verify(token, 'secretToken', function(errr,decoded) {
+        //유저아이디를 이용해서 유저를 찾은 다음
+        //클라이언트에서 가져온 token과 db에 보관된 토큰이 일치하는지 확인
+        
+        user.findeOne({"._id":decoded,"token":token},function(err,user){
+            if(err) return cb(err);
+            cb(null,user)
+
+        })
+    })
+
 }
 
 const User = mongoose.model('User', userSchema);
