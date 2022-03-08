@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import ReactDOM from 'react-dom'
 import lilac from './images/lilac.jpg';
 import fruits from './images/fruits.jpg';
@@ -11,6 +11,7 @@ import bottle5 from './images/bottle5.jpg';
 import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
 import { Link, Route, Switch } from 'react-router-dom';
+import Cart from './views/cart.js';
 import Landing from './views/landing.js';
 import data from './data.js';
 import Detail from './views/detail.js';
@@ -18,7 +19,8 @@ import Login from './views/login.js';
 //import SignUp from './views/signUp.js';
 import axios from 'axios';
 import './App.css';
-import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
   let [inven,invenState] = useState([50,60,70,80,90,100]);
   let [product, productState] = useState(data);
   let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6]);
+
   return (
   <div className="App">
     <Navmenu className="topMenu"></Navmenu>
@@ -35,9 +38,10 @@ function App() {
       <Route exact path="/detail/:id">
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
+      <Route exact path="/api/product/cart"><Cart></Cart></Route>
       {/* <Route exact path="/signUp"><SignUp></SignUp></Route> */}
       <Route exact path="/api/user/signup"></Route>
-      <Route exact paht="/api/landing"><Landing></Landing></Route>
+      <Route exact paht="/api/product/cart"><Cart></Cart></Route>
     </Switch>
 </div>
 
@@ -58,12 +62,12 @@ function Navmenu() {
               <NavDropdown title="menu" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/login">log in</NavDropdown.Item>
                 <NavDropdown.Item href="/signup">sign up</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">cart</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">log out</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
+          <div><FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon></div>
         </Container>
       </Navbar>
     </div>

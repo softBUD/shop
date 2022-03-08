@@ -5,9 +5,12 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const {User} = require('./src/models/user');
+const {Product} = require('./src/models/product');
 const cookieParser = require('cookie-parser');
 const {auth} = require('./middelware/auth');
 const bodyParser = require('body-parser');
+const { faArrowRightRotate } = require('@fortawesome/free-solid-svg-icons');
+const { privateDecrypt } = require('crypto');
 const port = process.env.PORT || 5000;
 
 
@@ -16,9 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 
+var db;
+
 
 
 const URI = process.env.MONGO_URI;
+
 mongoose
   .connect(URI)
   .then(() => console.log('MongoDB Connected!!'))
@@ -95,10 +101,25 @@ app.get('/api/user/logout',auth,(req,res)=>{
       })
   })
 })
+
+app.post('/api/product/add',(req,res)=> {
+  const product = new Product(req.body);
+  product.save((err,productInfo) => {
+    if (err) return res.json({ sucess: false, err})
+    return res.status(200).json({
+      success:true
+    })
+  })
+})
+
+app.get('/api/product/:keyword',async(res,req)=>{
+  const productList = await Product.find({});
+  res.render('product',{productList});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.get('*', function (요청, 응답) {
-  응답.sendFile(path.join(__dirname, '/public/index.html'));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 });

@@ -38,6 +38,9 @@
   height: 450px;
 }
 
+.cartIcon {
+  font-size: 18px;
+}
 .listWrap {
   padding: 20px;
   text-align: center;
