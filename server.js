@@ -6,6 +6,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const {User} = require('./src/models/user');
 const {Product} = require('./src/models/product');
+const {listNum} = require('./src/models/listnum');
 const cookieParser = require('cookie-parser');
 const {auth} = require('./middelware/auth');
 const bodyParser = require('body-parser');
@@ -18,9 +19,6 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
-
-var db;
-
 
 
 const URI = process.env.MONGO_URI;
@@ -103,23 +101,34 @@ app.get('/api/user/logout',auth,(req,res)=>{
 })
 
 app.post('/api/product/add',(req,res)=> {
-  const product = new Product(req.body);
-  product.save((err,productInfo) => {
+  listNum.findOne({name:'proNum'}, (err,result) =>{
+    var total = result.totalPost;
+    const product = new Product();
+    product.save((err,productInfo) => {
     if (err) return res.json({ sucess: false, err})
     return res.status(200).json({
       success:true
+      })
     })
-  })
+    product.updateMany({}, {$set:{_id:total}});
+  });
+
+
 })
 
-app.get('/api/product/:keyword',async(res,req)=>{
-  const productList = await Product.find({});
-  res.render('product',{productList});
+app.get('/api/product/:keyword',async(req,res)=>{
+  res.header("Access-Control-Allow-Origin","*");
+  try{const list = await Product.find().exec();
+    res.json(list);
+    } catch(e) {
+    res.status(500).send(e);
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.get('*', function (req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });

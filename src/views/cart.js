@@ -25,9 +25,9 @@ function Cart(props) {
 }
 
 
-function productState(state){
+function CartState(state){
     return {
         state:state
     }
 }
-export default connect(productState)(Cart);
+export default connect(CartState)(Cart);

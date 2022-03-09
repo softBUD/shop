@@ -13,7 +13,6 @@ import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from '
 import { Link, Route, Switch } from 'react-router-dom';
 import Cart from './views/cart.js';
 import Landing from './views/landing.js';
-import data from './data.js';
 import Detail from './views/detail.js';
 import Login from './views/login.js';
 //import SignUp from './views/signUp.js';
@@ -26,7 +25,7 @@ import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 function App() {
   let [more,moreState] = useState(false);
   let [inven,invenState] = useState([50,60,70,80,90,100]);
-  let [product, productState] = useState(data);
+  let [product, productState] = useState();
   let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6]);
 
   return (
@@ -41,7 +40,6 @@ function App() {
       <Route exact path="/api/product/cart"><Cart></Cart></Route>
       {/* <Route exact path="/signUp"><SignUp></SignUp></Route> */}
       <Route exact path="/api/user/signup"></Route>
-      <Route exact paht="/api/product/cart"><Cart></Cart></Route>
     </Switch>
 </div>
 
@@ -76,7 +74,12 @@ function Navmenu() {
 }
 
 function Home (props) {
-
+  useEffect(()=>{
+          axios.get('http://localhost:5000/api/product/get')
+          .then((result)=> {
+          props.productState([...result.data])
+          }).catch(()=>{/*요청실패시 실행*/})
+  })
 
   return (
     <div className='homeContainer'>
@@ -117,12 +120,12 @@ function Home (props) {
     </Carousel>
       <Container className='listContainer'>
         <Row className='listWrap'>
-          {
+          { props.product &&
             props.product.map(function(a,i) {
               return (
-                <Col className='listContent' key={props.product[i].id}>
+                <Col className='listContent' key={props.product[i]._id}>
                   <Link to={'/detail/'+i}><img className="listImg" src={props.proImg[i]} alt="productImages" /></Link>
-                  <div>{props.product[i].title}</div>
+                  <div>{props.product[i].name}</div>
                   <div>{props.product[i].price}</div>
                 </Col>
               )
