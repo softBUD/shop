@@ -14,8 +14,7 @@ import '../App.css';
 
 
 function Detail (props) {
-    
-    let [inputData, inputDataState] = useState(''); 
+    let [inputData, inputDataState] = useState('');
     let [ad,adState] = useState(true);
     let { id } = useParams(); //사용자가 입력한 url 파라미터들
     let findProduct = props.product.find(function(product) {
@@ -32,7 +31,6 @@ function Detail (props) {
 
     return(
       <div className='container'>
-        
         <div className='Container'>
           <div className='detailRow'>
             <img className="detailListImg" src={props.proImg[findProduct.id]} alt={findProduct.id} />
@@ -58,9 +56,6 @@ function Detail (props) {
           </Nav>
           <TabContent clikTab={clickTab} />
         </div>
-
-       
-
       </div>
     )
   }

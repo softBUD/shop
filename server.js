@@ -6,7 +6,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const {User} = require('./src/models/user');
 const {Product} = require('./src/models/product');
-const {listNum} = require('./src/models/listnum');
+const {ListNum} = require('./src/models/listnum');
 const cookieParser = require('cookie-parser');
 const {auth} = require('./middelware/auth');
 const bodyParser = require('body-parser');
@@ -64,7 +64,7 @@ app.post('/api/user/login',(req,res) => {
 
     user.generateToken((err,user)=> {
         if(err) return res.status(400).send(err);
-        //토큰을 저장한다.
+        //쿠키에 토큰을 저장한다.
       res.cookie("x_auth",user.token)
       .status(200)
       .json({loginSuccess:true, userId: user._id})
@@ -79,7 +79,7 @@ app.get('api/user/auth',auth,(req,res) => {
   res.status(200).json({
     //role이 0 = 일반유저 0이 아니면 관리자
     _id: req.user._id,
-    isAdmin: req.user.role === 0 ?false : true,
+    isAdmin: req.user.role === 0 ? false : true,
     isAuth:true,
     email:req.user.email,
     userName:req.user.userName,
@@ -101,24 +101,45 @@ app.get('/api/user/logout',auth,(req,res)=>{
 })
 
 app.post('/api/product/add',(req,res)=> {
-  listNum.findOne({name:'proNum'}, (err,result) =>{
-    var total = result.totalPost;
-    const product = new Product();
+  const product = new Product(req.body);
+  
+  ListNum.findOne({name:"productNumber"},
+  (err,result)=> {
+    if (err) return res.json({success:false,err});
+    const total = result.totalPost;
     product.save((err,productInfo) => {
     if (err) return res.json({ sucess: false, err})
     return res.status(200).json({
-      success:true
+        success:"datasave"
       })
     })
-    product.updateMany({}, {$set:{_id:total}});
-  });
+    product._id = total + 1;
+  })
 
-
+  ListNum.findOneAndUpdate({name:"productNumber"},
+    {$inc: {totalPost:1}},
+    (err,total)=> {
+      if(err) return res.json({success:false,err})
+      return res.status(200).json({
+        success:"total갱신"
+      })
+    })
 })
 
-app.get('/api/product/:keyword',async(req,res)=>{
+app.post('/api/listnum',(req,res)=>{
+  const listnum = new ListNum(req.body);
+  listnum.save((err,number) => {
+    if (err) return res.json({success:false,err})
+    return res.status(200).json({
+      success:true
+    })
+  })
+})
+
+app.get('/api/product/get',async(req,res)=>{
   res.header("Access-Control-Allow-Origin","*");
-  try{const list = await Product.find().exec();
+  try{
+    const list = await Product.find().exec();
     res.json(list);
     } catch(e) {
     res.status(500).send(e);

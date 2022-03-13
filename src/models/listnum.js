@@ -5,5 +5,5 @@ const listNumSchema = mongoose.Schema({
     name:String
 })
 
-const listNum = mongoose.model('productNum',listNumSchema);
-module.exports = {listNum};
+const ListNum = mongoose.model('listnum',listNumSchema);
+module.exports = {ListNum};

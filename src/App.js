@@ -42,11 +42,8 @@ function App() {
       <Route exact path="/api/user/signup"></Route>
     </Switch>
 </div>
-
   );
 }
-
-
 function Navmenu() {
   return(
     <div>
@@ -70,7 +67,6 @@ function Navmenu() {
       </Navbar>
     </div>
   )
-
 }
 
 function Home (props) {
@@ -79,7 +75,7 @@ function Home (props) {
           .then((result)=> {
           props.productState([...result.data])
           }).catch(()=>{/*요청실패시 실행*/})
-  })
+  },[])
 
   return (
     <div className='homeContainer'>
@@ -132,7 +128,6 @@ function Home (props) {
             })
           }
         </Row>
-        
       </Container>
     </div>
   )
