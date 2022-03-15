@@ -10,7 +10,7 @@ import bottle4 from './images/bottle4.jpg';
 import bottle5 from './images/bottle5.jpg';
 import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Route, BrowserRouter,withRouter, Switch ,Link} from 'react-router-dom';
 import Cart from './views/cart.js';
 import Landing from './views/landing.js';
 import Detail from './views/detail.js';
@@ -29,19 +29,21 @@ function App() {
   let [proImg, proImgState] = useState([bottle1,bottle2,bottle3,bottle4,bottle5,bottle6]);
 
   return (
-  <div className="App">
-    <Navmenu className="topMenu"></Navmenu>
+  <BrowserRouter>
     <Switch>
-      <Route exact path="/"><Home proImg={proImg} product={product}></Home></Route>
-      <Route exact path="/api/user/login"/>
-      <Route exact path="/detail/:id">
+    <Route path='/api/user/login' component={Login} />
+    <div className="App">
+      <Navmenu/>
+      <Route path="/"><Home proImg={proImg} product={product}></Home></Route>
+      <Route path="/detail/:id">
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
-      <Route exact path="/api/product/cart"><Cart></Cart></Route>
-      {/* <Route exact path="/signUp"><SignUp></SignUp></Route> */}
-      <Route exact path="/api/user/signup"></Route>
+      <Route path="/api/product/cart" component={Cart}/>
+      {/* <Route exact path="api/user/signUp" component={Signup} /> */}
+      <Route path="/api/user/signup"></Route>
+    </div>
     </Switch>
-</div>
+  </BrowserRouter>
   );
 }
 function Navmenu() {
@@ -55,7 +57,7 @@ function Navmenu() {
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/" className='linkNone'>product</Nav.Link>
               <NavDropdown title="menu" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/login">log in</NavDropdown.Item>
+                <NavDropdown.Item href="/api/user/login">log in</NavDropdown.Item>
                 <NavDropdown.Item href="/signup">sign up</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">log out</NavDropdown.Item>
