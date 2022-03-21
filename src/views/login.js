@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import lipstick from '../images/lipstick.png';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
+import {loginUser} from "../../src/_actions/user_action";
 
-function Login () {
+function Login (props) {
 
     const dispatch = useDispatch();
     const [Email,EmailState] = useState("");
     const [Password,PasswordState] = useState("");
 
+    // state를 변경시켜줌
     const onEmailHandler = (event) => {
       EmailState(event.currentTarget.value)
     }
@@ -24,14 +26,21 @@ function Login () {
         email:Email,
         password:Password
       }
-
+      //원래는 axios로 구현하는 부분을 disapatch로 넘김
       dispatch(loginUser(body))
-
+      .then(response => {
+        if(response.payload.loginSuccess){
+          props.history.push('/')
+        } else {
+          alert('Error')
+        }
+      })
       
   }
     return (
-      <div>
-        <form action="" className='loginForm' onSubmit={onSubmitHandler}>
+      <div> 
+        {/* onchange로 값 바꿔주어야함 , form에 submit핸들러추가*/}
+        <form className='loginForm' onSubmit={onSubmitHandler}>
           <div className='logoContainer'><img src={lipstick} className="logoImage" alt="" /><div className='logoTitle'>Cosme</div></div>
           <label className='noneLabel'>Email</label>
           <input type="email" onChange={onEmailHandler} placeholder="email" className='emailInput'/>

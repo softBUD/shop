@@ -12,10 +12,9 @@ import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
 import { Route, BrowserRouter,withRouter, Switch ,Link} from 'react-router-dom';
 import Cart from './views/cart.js';
-import Landing from './views/landing.js';
 import Detail from './views/detail.js';
 import Login from './views/login.js';
-//import SignUp from './views/signUp.js';
+import SignUp from './views/signUp.js';
 import axios from 'axios';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,15 +31,14 @@ function App() {
   <BrowserRouter>
     <Switch>
     <Route path='/api/user/login' component={Login} />
+    <Route path="/api/user/signup" component={SignUp}></Route>
     <div className="App">
       <Navmenu/>
       <Route path="/"><Home proImg={proImg} product={product}></Home></Route>
       <Route path="/detail/:id">
         <Detail product={product} proImg={proImg}></Detail>
       </Route>
-      <Route path="/api/product/cart" component={Cart}/>
-      {/* <Route exact path="api/user/signUp" component={Signup} /> */}
-      <Route path="/api/user/signup"></Route>
+      <Route path="/api/product/cart" component={Cart}/> 
     </div>
     </Switch>
   </BrowserRouter>

@@ -275,10 +275,35 @@ table {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  width: 30%;
-  margin-top: 20px;
+  width: 35vh;
+  margin-top: 50px;
 }
-
+.emailContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.signUpEmail {
+  flex: 1 1 0px;
+  font-size: 15px;
+  box-sizing: border-box;
+  line-height: 40px;
+  border-radius: 4px;
+  border: 1px solid #dbdbdb;
+  background-color: #fff;
+  color: #424242;
+}
+.emailDomain {
+  flex: 1 1 0px;
+  font-size: 15px;
+  box-sizing: border-box;
+  padding: 0 15px;
+  line-height: 40px;
+  border-radius: 4px;
+  border: 1px solid #dbdbdb;
+  background-color: #fff;
+  color: #424242;
+}
 #signUpBtn {
   margin-top: 30px;
   border: none;
