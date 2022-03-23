@@ -1,54 +1,58 @@
 import { faStepForward } from '@fortawesome/free-solid-svg-icons';
 import React, { useContext, useState } from 'react';
 import {useDispatch} from 'react-redux';
-import {loginUser} from '../_actions/user_action'
+import {signUpUser} from '../_actions/user_action'
 
 function SignUp(props) {
 
     const dispath = useDispatch();
 
-    const [email,emailState] = useState("");
-    const [domain,domainState] = useState("");
+    const [Email,EmailState] = useState("");
+    const [Domain,DomainState] = useState("");
     const options = [ 
                     {value:"naver.com", name:"naver"},
                     {value:"gmail.com", name:"google"},
                     {value:"hanmail.net" ,name:"daum"}
                     ];
-    const [fullEmail,fullEmailState] = useState("");
-    const [id, idState] = useState("");
-    const [pw, pwState] = useState("");
-    const [pwCheck, pwCheckState] = useState("");
+    const [FullEmail,FullEmailState] = useState("");
+    const [Name, NameState] = useState("");
+    const [PW, PWState] = useState("");
+    const [PWCheck, PWCheckState] = useState("");
 
 
     const onEmailHandler = (e) => {
-        emailState(e.currentTarget.value)
+        EmailState(e.currentTarget.value)
     }
     const onDomainHandler = (e) => {
-        domainState(e.currentTarget.value)
+        DomainState(e.currentTarget.value)
     }
     const onFullEmailHandler = (e) => {
-        fullEmailState(email+"@"+domain);
+        FullEmailState(Email+"@"+Domain);
     }
-    const onIdHandler = (e) => {
-        idState(e.currentTarget.value)
+    const onNameHandler = (e) => {
+        NameState(e.currentTarget.value)
     }
     const onPwHandler = (e) => {
-        pwState(e.currentTarget.value)
+        PWState(e.currentTarget.value)
     }
     const onPwCheckHandler = (e) => {
-        pwCheckState(e.currentTarget.value)
+        PWCheckState(e.currentTarget.value)
     }
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
 
-        let body = {
-            email: fullEmail,
-            password: pw
+        if(PW !== PWCheck) {
+            return alert("비밀번호가 동일하지 않습니다.")
         }
-        dispath(loginUser(body))
+        let body = {
+            email: FullEmail,
+            UserName: Name,
+            password: PW
+        }
+        dispath(signUpUser(body))
         .then(response=> {
-            if(response.payload.loginSuccess) {
+            if(response.payload.signupSuccess) {
                 props.history.push('/')
             } else {
                 alert("Error")
@@ -60,11 +64,11 @@ function SignUp(props) {
 
     return (
         <div>
-        <form action="/add" method="POST" id='signUpForm'>
-            <label htmlFor="emailID">Email</label>
+        <form onSubmit={onSubmitHandler} id='signUpForm'>
+            <label htmlFor="emailID" className='signUpLabel'>이메일</label>
             <div className='emailContainer'>
-            <input type="text" className='signUpEmail'value={email} onChange={onEmailHandler}/>
-            <div className='eamilspan'>@</div>
+            <input type="text" className='signUpEmail'value={Email} onChange={onEmailHandler}/>
+            <div className='emailSpan'>@</div>
             <select className='emailDomain' onChange={onDomainHandler}>
                 {options.map((option) => (
                     <option 
@@ -74,16 +78,14 @@ function SignUp(props) {
                 ))}
             </select>
             </div>
-            <div onChange={onFullEmailHandler}>{fullEmail}</div>
-            <label htmlFor="ID">ID</label>
-            <input type="text"  value={id} onChange={onIdHandler}/>
-            <label htmlFor="PW">PW</label>
-            <input type="text" value={pw} onChange={onPwHandler}/>
-
-            <label htmlFor="PWchk">PW check</label>
-            <input type="text" value={pwCheck} onChange={onPwCheckHandler} />
-
-            <input type="submit" value="submit" id='signUpBtn'/>
+            <div onChange={onFullEmailHandler}></div>
+            <label htmlFor="name" className='signUpLabel'>이름</label>
+            <input type="text"  value={Name} onChange={onNameHandler} className="signUpInput"/>
+            <label htmlFor="PW" className='signUpLabel'>비밀번호</label>
+            <input type="password" value={PW} onChange={onPwHandler} className="signUpInput"/>
+            <label htmlFor="PWchk" className='signUpLabel'>비밀번호 확인</label>
+            <input type="password" value={PWCheck} onChange={onPwCheckHandler} className="signUpInput"/>
+            <input type="submit" value="회원가입" id='signUpBtn'/>
         </form>
         </div>
     )

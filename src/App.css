@@ -151,8 +151,8 @@ table {
   background-origin: border-box;
   background-clip: content-box, border-box;
   margin: 0 6px;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
 }
 .logoTitle {
   display: inline;
@@ -207,7 +207,7 @@ table {
   padding: 40px 0px;
   align-items: center;
   box-sizing: border-box;
-  max-width: 300px;
+  max-width: 333px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -232,7 +232,7 @@ table {
   padding: 10px 15px 14px;
 }
 .loginButton {
-  background-color: #a06ee1;
+  background-color: #8946a6;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -275,7 +275,7 @@ table {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  width: 35vh;
+  width: 55vh;
   margin-top: 50px;
 }
 .emailContainer {
@@ -293,11 +293,31 @@ table {
   background-color: #fff;
   color: #424242;
 }
+.emailSpan {
+  margin: 10px 0 0 0;
+}
 .emailDomain {
   flex: 1 1 0px;
   font-size: 15px;
   box-sizing: border-box;
-  padding: 0 15px;
+  padding: 0 17px;
+  line-height: 40px;
+  border-radius: 4px;
+  border: 1px solid #dbdbdb;
+  background-color: #fff;
+  color: #424242;
+}
+.signUpLabel {
+  font-size: 15px;
+  font-weight: 800;
+  margin: 10px 0;
+}
+.signUpInput {
+  -webkit-appearance: none;
+  margin: 0px;
+  font-size: 15px;
+  box-sizing: border-box;
+  padding: 0 13px;
   line-height: 40px;
   border-radius: 4px;
   border: 1px solid #dbdbdb;
@@ -306,6 +326,10 @@ table {
 }
 #signUpBtn {
   margin-top: 30px;
+  width: 100%;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
+  background-color: #8946a6;
+  color: #fff;
+  height: 3rem;
 }
