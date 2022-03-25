@@ -11,13 +11,15 @@ const userSchema = mongoose.Schema({
         
     password: {
         type: String,
-        minlength: 5
+        trim:true,
+        match:/^[a-zA-Z0-9]*$/,
+        minlength: 6,
+        maxlength:15
         },
     userName: {
         type:String,
-        minlength: 4,
-        maxlength: 15,
-        unique: 1,
+        minlength: 2,
+        maxlength: 12,
     },
     role: {
         type: Number,
