@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import lipstick from '../images/lipstick.png';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom'
 import {loginUser} from "../../src/_actions/user_action";
 
 function Login (props) {
@@ -32,7 +33,7 @@ function Login (props) {
         if(response.payload.loginSuccess){
           props.history.push('/')
         } else {
-          alert('Error')
+          alert(response.payload.message)
         }
       })
       
@@ -41,7 +42,7 @@ function Login (props) {
       <div> 
         {/* onchange로 값 바꿔주어야함 , form에 submit핸들러추가*/}
         <form className='loginForm' onSubmit={onSubmitHandler}>
-          <div className='logoContainer'><img src={lipstick} className="logoImage" alt="" /><div className='logoTitle'>Cosme</div></div>
+          <div className='logoContainer'><Link to='/' className='linkNone'><img src={lipstick} className="logoImage" alt="logo_image" /><div className='logoTitle'>Cosme</div></Link></div>
           <label className='noneLabel'>Email</label>
           <input type="email" onChange={onEmailHandler} placeholder="email" className='emailInput'/>
           <label className='noneLabel'>password</label>

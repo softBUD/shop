@@ -11,8 +11,6 @@ const userSchema = mongoose.Schema({
         
     password: {
         type: String,
-        trim:true,
-        match:/^[a-zA-Z0-9]*$/,
         minlength: 6,
         maxlength:15
         },
@@ -29,7 +27,7 @@ const userSchema = mongoose.Schema({
     token: {
         type:String,
     },
-    toeknExp: {
+    tokenExp: {
         type: Number
     }
 })

@@ -31,7 +31,6 @@ mongoose
 app.get('/', (req, res) => {
   res.send('Hello world!!');
 });
-app.get('/api/landing',(req,res)=> res.send("hello!!!!"));
 
 app.post('/api/user/signup', (req,res)=> {
   const user = new User(req.body)
@@ -50,7 +49,6 @@ app.post('/api/user/login',(req,res) => {
     //요청된 이메일을 데이터베이스에서 있는지 찾는다.
     let login = User.findOne({ email: req.body.email }, (err, user) => {
 
-      // console.log('user', user)
       if (!user) {
         return res.json({
           loginSuccess: false,
@@ -73,7 +71,6 @@ app.post('/api/user/login',(req,res) => {
     })
   })
 })
-
 app.get('api/user/auth',auth,(req,res) => {
   //미들웨어를 통과해오면 auth가 true라는 뜻이다.
   res.status(200).json({

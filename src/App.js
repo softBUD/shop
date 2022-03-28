@@ -11,6 +11,7 @@ import bottle5 from './images/bottle5.jpg';
 import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
 import { Route, BrowserRouter,withRouter, Switch ,Link} from 'react-router-dom';
+import lipstick from './images/lipstick.png';
 import Cart from './views/cart.js';
 import Detail from './views/detail.js';
 import Login from './views/login.js';
@@ -44,21 +45,33 @@ function App() {
   </BrowserRouter>
   );
 }
-function Navmenu() {
+function Navmenu(props) {
+  const onLogoutHandler = () => {
+    axios.get('/api/user/logout')
+    .then(response => {
+      if(response.data.success) {
+        console.log(response.data)
+        axios.get("/")
+        
+      } else {
+        alert("로그아웃 실패")
+      }
+    })
+  }
   return(
     <div>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand className='logo'><Link to="/" className='linkNone' id='cosme'>Cosme</Link></Navbar.Brand>
+          <Navbar.Brand className='logo'><Link to="/" className='linkNone' id='cosme'><img src={lipstick} className="logoImage" alt="logo_image" /><div className='logoTitle'>Cosme</div></Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/" className='linkNone'>product</Nav.Link>
               <NavDropdown title="menu" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/api/user/login">log in</NavDropdown.Item>
-                <NavDropdown.Item href="/signup">sign up</NavDropdown.Item>
+                <NavDropdown.Item href="/api/user/signup">sign up</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">log out</NavDropdown.Item>
+                <NavDropdown.Item onClick={onLogoutHandler}>log out</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
@@ -71,7 +84,7 @@ function Navmenu() {
 
 function Home (props) {
   useEffect(()=>{
-          axios.get('http://localhost:5000/api/product/get')
+          axios.get(`/api/product/get`)
           .then((result)=> {
           props.productState([...result.data])
           }).catch(()=>{/*요청실패시 실행*/})

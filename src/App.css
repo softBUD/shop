@@ -144,29 +144,32 @@ table {
   font-family: "Roboto Serif", sans-serif;
 }
 .logoImage {
+  display: inline;
   border-radius: 4px;
   border: solid 2px transparent;
   background-image: linear-gradient(#fff, #fff),
     linear-gradient(to right, #0cecdd, #d47ae8, #ff67e7);
   background-origin: border-box;
   background-clip: content-box, border-box;
-  margin: 0 6px;
-  width: 30px;
-  height: 30px;
+  margin-right: 4px;
+  width: 27px;
+  height: 26px;
 }
 .logoTitle {
+  position: relative;
+  bottom: 0.1em;
   display: inline;
   font-family: "Roboto Serif", sans-serif;
   font-size: 25px;
 }
-#cosme {
-  color: black;
-}
+
 .linkNone {
   text-decoration: none;
-  color: #716f81;
+  color: black;
 }
-
+.linkNone:hover {
+  color: black;
+}
 #slideTitleFirst,
 #slideTextFirst {
   color: #8946a6;
@@ -213,6 +216,7 @@ table {
   flex-direction: column;
   justify-content: center;
 }
+
 .noneLabel {
   display: none;
 }
