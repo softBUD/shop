@@ -6,8 +6,7 @@ import {signUpUser} from '../_actions/user_action'
 function SignUp(props) {
 
     const dispath = useDispatch();
-    const pwRegEng = /^[a-zA-Z]*$/; ;
-    const pwRegNum = /^[0-9]*$/;
+    const reg = /^(?=.*[a-zA-z])(?=.*[0-9]).{6,15}$/
     const [Email,EmailState] = useState("");
     const [Domain,DomainState] = useState("");
     const options = [ 
@@ -20,7 +19,7 @@ function SignUp(props) {
     const [PW, PWState] = useState("");
     const [PWCheck, PWCheckState] = useState("");
     const [PWMsg, PWMsgState] = useState(false);
-    const [PWConMsg,PWConMsgState] = useState(true);
+    const [PWConMsg,PWConMsgState] = useState(false);
     const [PWChkMsg, PWChkMsgState] = useState(false);
 
 
@@ -45,14 +44,19 @@ function SignUp(props) {
         PWCheckState(e.currentTarget.value)
     }
     const onPWConMsgHandler = (e) => {
-        const inputPW = (e.currentTarget.value)
-        if(pwRegEng.test(inputPW) && pwRegNum.test(inputPW)){
+        let inputPW = (e.currentTarget.value)
+        
+        if(reg.test(inputPW)){
+            PWConMsgState(true)
+        } else {
             PWConMsgState(false)
         }
+       
     }
     const onPWMsgHandler = (e) => {
-        PWMsgState(true) 
+        PWMsgState(true)
     }
+
     const onPWCheckMsgHandler = (e) => {
         PWChkMsgState(true)
     }
@@ -106,8 +110,8 @@ function SignUp(props) {
             <input type="text"  value={Name} onClick={onNameMsgHandler} onChange={onNameHandler} className="signUpInput"/>
             {NameMsg == true && Name.length <2 ? <div>이름은 두글자 이상 입력해주세요</div> : null}
             <label htmlFor="PW" className='signUpLabel'>비밀번호</label>
-            <input type="password" value={PW} onClick={onPWMsgHandler} onChange={(e)=>{onPwHandler(e); onPWConMsgHandler(e);}} className="signUpInput"/>
-            {PWMsg == true &&  PWConMsg == true ? <div>영문자와 숫자 조합필수</div>:null}
+            <input type="password" value={PW} onClick={(e)=>{onPWMsgHandler(e);}} onChange={(e)=>{onPwHandler(e); onPWConMsgHandler(e);}} className="signUpInput"/>
+            {PWMsg == true && PWConMsg == false ? <div>영문자와 숫자 조합필수</div>:null}
             {PWMsg == true && PW.length < 6 ? <div>6글자 이상</div>:null}
             <label htmlFor="PWchk" className='signUpLabel'>비밀번호 확인</label>
             <input type="password" value={PWCheck} onClick={onPWCheckMsgHandler} onChange={onPwCheckHandler} className="signUpInput"/>
