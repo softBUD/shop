@@ -1,7 +1,9 @@
 import { faStepForward } from '@fortawesome/free-solid-svg-icons';
 import React, { useContext, useState } from 'react';
 import {useDispatch} from 'react-redux';
-import {signUpUser} from '../_actions/user_action'
+import {signUpUser} from '../_actions/user_action';
+import {withRouter} from "react-router-dom";
+
 
 function SignUp(props) {
 
@@ -136,4 +138,4 @@ function SignUp(props) {
     )
 }
 
-export default SignUp;
+export default withRouter(SignUp);

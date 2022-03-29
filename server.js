@@ -71,7 +71,7 @@ app.post('/api/user/login',(req,res) => {
     })
   })
 })
-app.get('api/user/auth',auth,(req,res) => {
+app.get('/api/user/auth',auth,(req,res) => {
   //미들웨어를 통과해오면 auth가 true라는 뜻이다.
   res.status(200).json({
     //role이 0 = 일반유저 0이 아니면 관리자

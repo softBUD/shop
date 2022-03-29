@@ -4,6 +4,7 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom'
 import {loginUser} from "../../src/_actions/user_action";
+import {withRouter} from "react-router-dom";
 
 function Login (props) {
 
@@ -53,4 +54,4 @@ function Login (props) {
 
     )
   }
-  export default Login;
+  export default withRouter(Login);

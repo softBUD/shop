@@ -16,6 +16,7 @@ import Cart from './views/cart.js';
 import Detail from './views/detail.js';
 import Login from './views/login.js';
 import SignUp from './views/signUp.js';
+import Auth from './hoc/auth.js';
 import axios from 'axios';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,14 +32,12 @@ function App() {
   return (
   <BrowserRouter>
     <Switch>
-    <Route path='/api/user/login' component={Login} />
-    <Route path="/api/user/signup" component={SignUp}></Route>
+    <Route path='/user/login' component={Auth(Login, false)} />
+    <Route path="/user/signup" component={Auth(SignUp,false)}></Route>
     <div className="App">
       <Navmenu/>
-      <Route path="/"><Home proImg={proImg} product={product}></Home></Route>
-      <Route path="/detail/:id">
-        <Detail product={product} proImg={proImg}></Detail>
-      </Route>
+      <Route path="/" component={Auth(Home, null)}></Route>
+      <Route path="/detail/:id" component={Auth(Detail,null)}></Route>
       <Route path="/api/product/cart" component={Cart}/> 
     </div>
     </Switch>
@@ -50,8 +49,7 @@ function Navmenu(props) {
     axios.get('/api/user/logout')
     .then(response => {
       if(response.data.success) {
-        console.log(response.data)
-        axios.get("/")
+        axios.get('/')
         
       } else {
         alert("로그아웃 실패")
@@ -68,8 +66,8 @@ function Navmenu(props) {
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/" className='linkNone'>product</Nav.Link>
               <NavDropdown title="menu" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/api/user/login">log in</NavDropdown.Item>
-                <NavDropdown.Item href="/api/user/signup">sign up</NavDropdown.Item>
+                <NavDropdown.Item href="/user/login">log in</NavDropdown.Item>
+                <NavDropdown.Item href="/user/signup">sign up</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={onLogoutHandler}>log out</NavDropdown.Item>
               </NavDropdown>
@@ -147,4 +145,4 @@ function Home (props) {
 }
 
 
-export default App;
+export default withRouter(App);
