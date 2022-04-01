@@ -1,8 +1,8 @@
 import React, { useContext, useState,useEffect } from 'react';
 import ReactDOM from 'react-dom'
-import lilac from './images/lilac.jpg';
-import fruits from './images/fruits.jpg';
-import leaf from './images/leaf.jpg';
+import main from './images/main.jpg';
+import main2 from './images/main2.jpg';
+import main3 from './images/main3.jpg';
 import bottle1 from './images/bottle1.jpg';
 import bottle2 from './images/bottle2.jpg';
 import bottle3 from './images/bottle3.jpg';
@@ -17,6 +17,7 @@ import Detail from './views/detail.js';
 import Login from './views/login.js';
 import SignUp from './views/signUp.js';
 import Auth from './hoc/auth.js';
+import Upload from './views/upload.js';
 import axios from 'axios';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,12 +34,13 @@ function App() {
   <BrowserRouter>
     <Switch>
     <Route path='/user/login' component={Auth(Login, false)} />
-    <Route path="/user/signup" component={Auth(SignUp,false)}></Route>
     <div className="App">
       <Navmenu/>
       <Route path="/" component={Auth(Home, null)}></Route>
       <Route path="/detail/:id" component={Auth(Detail,null)}></Route>
-      <Route path="/api/product/cart" component={Cart}/> 
+      <Route path="/user/signup" component={Auth(SignUp,false)}></Route>
+      <Route path="/api/product/cart" component={Cart}/>
+      <Route path="/upload" component={Auth(Upload,true)}/>
     </div>
     </Switch>
   </BrowserRouter>
@@ -57,25 +59,25 @@ function Navmenu(props) {
     })
   }
   return(
-    <div>
-      <Navbar bg="light" expand="lg">
-        <Container>
-          <Navbar.Brand className='logo'><Link to="/" className='linkNone' id='cosme'><img src={lipstick} className="logoImage" alt="logo_image" /><div className='logoTitle'>Cosme</div></Link></Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/" className='linkNone'>product</Nav.Link>
-              <NavDropdown title="menu" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/user/login">log in</NavDropdown.Item>
-                <NavDropdown.Item href="/user/signup">sign up</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={onLogoutHandler}>log out</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-          <div><FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon></div>
-        </Container>
-      </Navbar>
+    <div className='headerNavContainer'>
+      <header className='headerNav'>
+          <div className='logo'>
+            <Link to="/" className='linkNone' id='cosme'>
+              <div className='logoTitle'>Cosme</div>
+            </Link>
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
+          </div>
+      </header>
+          <div className='carouselWrapper' id='carousel_1'>
+            <img src={main} alt="carousel_images" className='carouselImage'/>
+            <img src={main2} alt="carousel_images" className='carouselProImage1'/>
+            <img src={main3} alt="carousel_images" className='carouselProImage2'/>
+            <div className='carouselText1'>다양한 제품을 경험해보세요</div>
+          </div>
+          
+        
     </div>
   )
 }
@@ -90,41 +92,6 @@ function Home (props) {
 
   return (
     <div className='homeContainer'>
-      <Carousel fade>
-      <Carousel.Item>
-        <img
-          className="carFirst"
-          src={lilac}
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h3 className='slideTitle' id='slideTitleFirst'>Floral</h3>
-          <p id='slideTextFirst'>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="carSecond"
-          src={fruits}
-          alt="Second slide"
-        />
-        <Carousel.Caption>
-          <h3 className='slideTitle' id='slideTitleSecond'>Fruits</h3>
-          <p id='slideTextSecond'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="carThird"
-          src={leaf}
-          alt="Third slide"
-        />
-        <Carousel.Caption>
-          <h3 className='slideTitle' id='slideTitleThird'>Nature</h3>
-          <p id='slideTextThird'>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
       <Container className='listContainer'>
         <Row className='listWrap'>
           { props.product &&

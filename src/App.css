@@ -137,8 +137,40 @@ table {
 .App {
   margin: 0 auto;
 }
-.logoContainer {
-  margin: 20px 0;
+#carousel_1 {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 75vh;
+  background-color: #e4d1b9;
+}
+.carouselImage1 {
+  width: 45%;
+}
+.carouselProImage1 {
+  margin-top: 15%;
+  margin-left: 5%;
+  width: 15%;
+  height: 35%;
+}
+.carouselProImage2 {
+  margin-left: 3%;
+  margin-top: 5%;
+  width: 15%;
+  height: 35%;
+}
+.carouselText1 {
+  align-content: center;
+  width: 100%;
+}
+.headerNav {
+  margin: 0 auto;
+  padding-top: 10px;
+  max-width: 80%;
+  max-height: 20%;
+  display: flex;
+  justify-content: space-between;
 }
 .logo {
   font-family: "Roboto Serif", sans-serif;
@@ -146,9 +178,6 @@ table {
 .logoImage {
   display: inline;
   border-radius: 4px;
-  border: solid 2px transparent;
-  background-image: linear-gradient(#fff, #fff),
-    linear-gradient(to right, #0cecdd, #d47ae8, #ff67e7);
   background-origin: border-box;
   background-clip: content-box, border-box;
   margin-right: 4px;
@@ -193,6 +222,7 @@ table {
 
 .cartIcon {
   font-size: 18px;
+  color: #fff;
 }
 .listWrap {
   padding: 20px;
