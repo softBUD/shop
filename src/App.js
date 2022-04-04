@@ -48,7 +48,7 @@ function App() {
 }
 function Navmenu(props) {
   const onLogoutHandler = () => {
-    axios.get('/api/user/logout')
+    axios.get('/user/logout')
     .then(response => {
       if(response.data.success) {
         axios.get('/')
@@ -66,6 +66,11 @@ function Navmenu(props) {
               <div className='logoTitle'>Cosme</div>
             </Link>
           </div>
+          <div className='headerNavMenu'>
+            <a href="/user/login" className='linkNone'>로그인</a>
+            <a href="/user/signup" className='linkNone'>회원가입</a>
+            <div onClick={onLogoutHandler} className='linkNone'>로그아웃</div>
+          </div>
           <div>
             <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
           </div>
@@ -74,7 +79,7 @@ function Navmenu(props) {
             <img src={main} alt="carousel_images" className='carouselImage'/>
             <img src={main2} alt="carousel_images" className='carouselProImage1'/>
             <img src={main3} alt="carousel_images" className='carouselProImage2'/>
-            <div className='carouselText1'>다양한 제품을 경험해보세요</div>
+            <div className='carouselText1'>Lorem ipsum dolor sit amet<br/><span className='carouselText1Desc'>Nulla officia soluta totam atque saepe itaque</span></div>
           </div>
           
         

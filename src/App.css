@@ -138,31 +138,37 @@ table {
   margin: 0 auto;
 }
 #carousel_1 {
+  background-color: antiquewhite;
   margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  height: 75vh;
-  background-color: #e4d1b9;
+  display: grid;
+  grid-gap: 10px;
+  height: 30%;
+  grid-template-columns: 1fr 1fr 1fr;
+
 }
-.carouselImage1 {
-  width: 45%;
+.carouselImage {
+  grid-row: 1/ span 2;
+  max-width: 80vh;
 }
 .carouselProImage1 {
-  margin-top: 15%;
-  margin-left: 5%;
-  width: 15%;
-  height: 35%;
+  margin-top: 6rem;
+  max-width: 93%;
+  justify-self: center;
 }
 .carouselProImage2 {
-  margin-left: 3%;
-  margin-top: 5%;
-  width: 15%;
-  height: 35%;
+  margin-top: 2rem;
+  max-width: 88%;
+  justify-self: center;
 }
 .carouselText1 {
-  align-content: center;
-  width: 100%;
+  grid-column: 2/span 2;
+  word-break: break-all;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.carouselText1Desc {
+  font-weight: 300;
 }
 .headerNav {
   margin: 0 auto;
@@ -367,3 +373,43 @@ table {
   color: #fff;
   height: 3rem;
 }
+/* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/ 
+@media all and (min-width:768px) and (max-width:1023px) {
+  #carousel_1{
+    background-color: #fff;
+    width: 100%;
+  }
+  .carouselImage {
+    grid-template-columns: 1/span 2;
+  }
+  .carouselProImage1{
+    display: none;
+  }
+  .carouselProImage2{
+    display: none;
+  }
+  .carouselText1 {
+    display: none;
+  }
+  }
+/* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/ 
+@media all and (max-width:767px) {
+  #carousel_1{
+    background-color: #fff;
+    width: 100%;
+  }
+  .carouselImage {
+    grid-template-columns: 1/span 2;
+  }
+  .carouselProImage1{
+    display: none;
+  }
+  .carouselProImage2{
+    display: none;
+  }
+  .carouselText1 {
+    display: none;
+  }
+  }
+
+
