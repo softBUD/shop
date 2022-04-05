@@ -1,4 +1,3 @@
-import { faStepForward } from '@fortawesome/free-solid-svg-icons';
 import React, { useContext, useState } from 'react';
 import {useDispatch} from 'react-redux';
 import {signUpUser} from '../_actions/user_action';

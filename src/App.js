@@ -34,13 +34,13 @@ function App() {
   <BrowserRouter>
     <Switch>
     <Route path='/user/login' component={Auth(Login, false)} />
+    <Route path="/user/signup" component={Auth(SignUp,false)}></Route>
+    <Route path="/upload" component={Auth(Upload,true)}/>
     <div className="App">
       <Navmenu/>
       <Route path="/" component={Auth(Home, null)}></Route>
       <Route path="/detail/:id" component={Auth(Detail,null)}></Route>
-      <Route path="/user/signup" component={Auth(SignUp,false)}></Route>
       <Route path="/api/product/cart" component={Cart}/>
-      <Route path="/upload" component={Auth(Upload,true)}/>
     </div>
     </Switch>
   </BrowserRouter>
@@ -68,8 +68,9 @@ function Navmenu(props) {
           </div>
           <div className='headerNavMenu'>
             <a href="/user/login" className='linkNone'>로그인</a>
-            <a href="/user/signup" className='linkNone'>회원가입</a>
-            <div onClick={onLogoutHandler} className='linkNone'>로그아웃</div>
+            <br></br><a href="/user/signup" className='linkNone'>회원가입</a>
+            <br></br><div onClick={onLogoutHandler} className='linkNone'>로그아웃</div>
+            <a href="/upload" className='linkNone'>상품등록</a>
           </div>
           <div>
             <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
@@ -77,9 +78,8 @@ function Navmenu(props) {
       </header>
           <div className='carouselWrapper' id='carousel_1'>
             <img src={main} alt="carousel_images" className='carouselImage'/>
-            <img src={main2} alt="carousel_images" className='carouselProImage1'/>
-            <img src={main3} alt="carousel_images" className='carouselProImage2'/>
-            <div className='carouselText1'>Lorem ipsum dolor sit amet<br/><span className='carouselText1Desc'>Nulla officia soluta totam atque saepe itaque</span></div>
+            <div className='carouselText'>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Perferendis recusandae excepturi omnis saepe molestiae? </div>
           </div>
           
         
