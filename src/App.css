@@ -354,7 +354,7 @@ table {
   margin: 0 auto;
 }
 .productForm {
-  margin-top: 5rem;
+  margin-top: 3rem;
   text-align: center;
 }
 .productLabel {
@@ -378,11 +378,33 @@ table {
   margin: 0 auto;
   width: 250px;
   height: 250px;
-  border: 1px solid #424242;
+  border: 3px dashed #dbdbdb;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.uploadIconContainer {
+  line-height: 250px;
+  width: 250px;
+  height: 250px;
+}
+.uploadIconContainer:hover {
+  background-color: #9fd4a48f;
+  border-radius: 6px;
+}
+.uploadIcon {
+  font-size: 25px;
+}
+.productSubmit {
+  padding: 1rem 3rem;
+  border: none;
+  background-color: #F0ECE3;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 5px;
+}
+
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/ 
 @media all and (min-width:768px) and (max-width:1023px) {
   #carousel_1{

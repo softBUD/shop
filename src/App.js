@@ -1,5 +1,6 @@
 import React, { useContext, useState,useEffect } from 'react';
 import ReactDOM from 'react-dom'
+import {useDispatch} from 'react-redux';
 import main from './images/main.jpg';
 import main2 from './images/main2.jpg';
 import main3 from './images/main3.jpg';
@@ -10,7 +11,7 @@ import bottle4 from './images/bottle4.jpg';
 import bottle5 from './images/bottle5.jpg';
 import bottle6 from './images/bottle6.jpg';
 import { Navbar,Container,Nav,NavDropdown,Carousel,Row,Col ,Form, Button} from 'react-bootstrap';
-import { Route, BrowserRouter,withRouter, Switch ,Link} from 'react-router-dom';
+import { Route, BrowserRouter,withRouter, Switch ,Link,useHistory} from 'react-router-dom';
 import lipstick from './images/lipstick.png';
 import Cart from './views/cart.js';
 import Detail from './views/detail.js';
@@ -25,6 +26,7 @@ import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 
 
 function App() {
+  const dispatch = useDispatch();
   let [more,moreState] = useState(false);
   let [inven,invenState] = useState([50,60,70,80,90,100]);
   let [product, productState] = useState();
@@ -48,11 +50,11 @@ function App() {
 }
 function Navmenu(props) {
   const onLogoutHandler = () => {
-    axios.get('/user/logout')
+    axios.get('/api/user/logout')
     .then(response => {
       if(response.data.success) {
-        axios.get('/')
-        
+        axios.get("/")
+        alert("로그아웃되었습니다.")
       } else {
         alert("로그아웃 실패")
       }
@@ -76,13 +78,6 @@ function Navmenu(props) {
             <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
           </div>
       </header>
-          <div className='carouselWrapper' id='carousel_1'>
-            <img src={main} alt="carousel_images" className='carouselImage'/>
-            <div className='carouselText'>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Perferendis recusandae excepturi omnis saepe molestiae? </div>
-          </div>
-          
-        
     </div>
   )
 }
@@ -97,6 +92,11 @@ function Home (props) {
 
   return (
     <div className='homeContainer'>
+      <div className='carouselWrapper' id='carousel_1'>
+            <img src={main} alt="carousel_images" className='carouselImage'/>
+            <div className='carouselText'>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Perferendis recusandae excepturi omnis saepe molestiae? </div>
+      </div>
       <Container className='listContainer'>
         <Row className='listWrap'>
           { props.product &&

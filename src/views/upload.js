@@ -1,5 +1,7 @@
-import { faSpaghettiMonsterFlying } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Dropzone from 'react-dropzone'
 
 function Upload() {
@@ -8,27 +10,49 @@ function Upload() {
     const [Images,ImageState] = useState([]);
     const [Option,OptionState] = useState("");
 
-    const productTitleHandler = (e) => {
+    const proTitleHandler = (e) => {
         TitleState(e.currentTarget.value);
     }
-    const productPriceHandler = (e) => {
+    const proOptionAutoHandler = (e) => {
+        const autoOp = e.currentTarget.value;
+        OptionState(autoOp+"[1개]");
+    }
+    const proPriceHandler = (e) => {
         PriceState(e.currentTarget.value);
     }
-    const productOptionHandler = (e) => {
+    const proOptionHandler = (e) => {
+        OptionState(Title);
         OptionState(e.currentTarget.value);
     }
+    const onDropHandler = (files) => {
+        let formData = new FormData();
+        const config = {
+            header: {'content-type' : 'multipart/form-data'}
+            //어떤 타입의 파일인지 정의를 해줌 request 받을때 에러없이 받도록.
+        }
+        
+        formData.append("file",files[0])
 
+        axios.post("/product/image", formData, config)
+        .then(response => {
+            if(response.data.success) {
+        
+        } else {
+            alert("파일저장에 실패했습니다.")
+        }
+    })
+}
     return (
         <div className='productFormContainer'>
             <form className='productForm'>
                 <label className='productLabel'>상품이미지</label>
                 <br></br>
-                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                <Dropzone onDrop={onDropHandler}>
                     {({getRootProps, getInputProps}) => (
                         <section className='imagefileForm'>
                         <div  {...getRootProps()}>
                             <input {...getInputProps()} />
-                            <p>Drag 'n' drop some files here, or click to select files</p>
+                            <div className='uploadIconContainer'><FontAwesomeIcon icon={faFileArrowUp} className="uploadIcon"/></div>
                         </div>
                         </section>
                     )}
@@ -36,15 +60,15 @@ function Upload() {
                 <br></br>
                 <label className='productLabel'>상품명</label>
                 <br></br>
-                <input type="text" className='productInput'onChange={productTitleHandler} value={Title}/>
+                <input type="text" className='productInput'onChange={(e)=>{proTitleHandler(e); proOptionAutoHandler(e);}} value={Title}/>
                 <br></br>
                 <label className='productLabel' >가격</label>
                 <br></br>
-                <input type="text" className='productInput' onChange={productPriceHandler} value={Price}/>
+                <input type="text" className='productInput' onChange={proPriceHandler} value={Price}/>
                 <br></br>
-                <label className='productLabel'>옵션</label>
+                <label className='productLabel' >옵션</label>
                 <br></br>
-                <input type="text" className='productInput' onChange={productOptionHandler} value={Option}/>
+                <input type="text" className='productInput' onChange={proOptionHandler} value={Option}/>
                 <br></br><button className='productSubmit'>등록</button>
             </form>
         </div>
