@@ -33,10 +33,10 @@ function Upload() {
         
         formData.append("file",files[0])
 
-        axios.post("/product/image", formData, config)
+        axios.post("/api/product/image", formData, config)
         .then(response => {
             if(response.data.success) {
-        
+                console.log(response.data);
         } else {
             alert("파일저장에 실패했습니다.")
         }
