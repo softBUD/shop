@@ -24,6 +24,8 @@ function Upload() {
         OptionState(Title);
         OptionState(e.currentTarget.value);
     }
+
+
     const onDropHandler = (files) => {
         let formData = new FormData();
         const config = {
@@ -37,8 +39,9 @@ function Upload() {
         .then(response => {
             if(response.data.success) {
                 console.log(response.data);
+
         } else {
-            alert("파일저장에 실패했습니다.")
+           console.log(response.data);
         }
     })
 }
@@ -52,7 +55,7 @@ function Upload() {
                         <section className='imagefileForm'>
                         <div  {...getRootProps()}>
                             <input {...getInputProps()} />
-                            <div className='uploadIconContainer'><FontAwesomeIcon icon={faFileArrowUp} className="uploadIcon"/></div>
+                            <div className='uploadIconContainer' id='newFile'><FontAwesomeIcon icon={faFileArrowUp} className="uploadIcon"/></div>
                         </div>
                         </section>
                     )}
