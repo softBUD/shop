@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
+import { faDirections, faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Dropzone from 'react-dropzone'
@@ -24,10 +24,14 @@ function Upload() {
         OptionState(Title);
         OptionState(e.currentTarget.value);
     }
-
-
+    const preview = Images.map(file => (
+        <div key={file.name} className="proInputImageCon">
+            <img className="proInputImage"
+              src={file.preview}/>
+        </div>
+        ))
     const onDropHandler = (files) => {
-        let formData = new FormData();
+        const formData = new FormData();
         const config = {
             header: {'content-type' : 'multipart/form-data'}
             //어떤 타입의 파일인지 정의를 해줌 request 받을때 에러없이 받도록.
@@ -39,6 +43,9 @@ function Upload() {
         .then(response => {
             if(response.data.success) {
                 console.log(response.data);
+                ImageState(files.map(file => Object.assign(file,{
+                    preview:URL.createObjectURL(file)
+                })));
 
         } else {
            console.log(response.data);
@@ -50,16 +57,18 @@ function Upload() {
             <form className='productForm'>
                 <label className='productLabel'>상품이미지</label>
                 <br></br>
-                <Dropzone onDrop={onDropHandler}>
+                <Dropzone className="inputDropzone" onDrop={onDropHandler}>
                     {({getRootProps, getInputProps}) => (
-                        <section className='imagefileForm'>
-                        <div  {...getRootProps()}>
+                        <section className='proInputSection'>
+                        <div  {...getRootProps()} className="proInputCon">
                             <input {...getInputProps()} />
-                            <div className='uploadIconContainer' id='newFile'><FontAwesomeIcon icon={faFileArrowUp} className="uploadIcon"/></div>
+                            <div className='uploadIconCon' id='newFile'><FontAwesomeIcon icon={faFileArrowUp} className="uploadIcon"/></div>
                         </div>
+                        {preview}
                         </section>
                     )}
                 </Dropzone>
+                
                 <br></br>
                 <label className='productLabel'>상품명</label>
                 <br></br>
@@ -73,6 +82,7 @@ function Upload() {
                 <br></br>
                 <input type="text" className='productInput' onChange={proOptionHandler} value={Option}/>
                 <br></br><button className='productSubmit'>등록</button>
+
             </form>
         </div>
     )
