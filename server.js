@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
-
+app.use('/uploads', express.static('uploads'));
 
 const URI = process.env.MONGO_URI;
 
@@ -86,7 +86,7 @@ app.get('/api/user/auth',auth,(req,res) => {
 
 })
 
-app.get('/user/logout',auth,(req,res)=>{
+app.get('/api/user/logout',auth,(req,res)=>{
   User.findOneAndUpdate({_id:req.user._id}, 
     {token:""},
     (err,user) => {
@@ -97,30 +97,38 @@ app.get('/user/logout',auth,(req,res)=>{
   })
 })
 
-app.post('/api/product/add',(req,res)=> {
+app.post('/api/product/upload',(req,res)=> {
   const product = new Product(req.body);
-  
-  ListNum.findOne({name:"productNumber"},
-  (err,result)=> {
-    if (err) return res.json({success:false,err});
-    const total = result.totalPost;
-    product.save((err,productInfo) => {
-    if (err) return res.json({ sucess: false, err})
+
+  product.save((err,productInfo) => {
+    if (err) return res.json({ sucess: false,err})
     return res.status(200).json({
-        success:"datasave"
-      })
+      success:true
     })
-    product._id = total + 1;
   })
 
-  ListNum.findOneAndUpdate({name:"productNumber"},
-    {$inc: {totalPost:1}},
-    (err,total)=> {
-      if(err) return res.json({success:false,err})
-      return res.status(200).json({
-        success:"total갱신"
-      })
-    })
+  // ListNum.findOne({name:"productNumber"},
+  // (err,result)=> {
+  //   if (err) return res.json({success:false,err});
+  //   const total = result.totalPost;
+  //   product.save((err,productInfo) => {
+  //   if (err) return res.json({ sucess: false, err})
+  //   return res.status(200).json({
+  //       success:"datasave"
+  //     })
+  //   })
+  //   product._id = total + 1;
+  // })
+
+  // ListNum.findOneAndUpdate({name:"productNumber"},
+  //   {$inc: {totalPost:1}},
+  //   (err,total)=> {
+  //     if(err) return res.json({success:false,err})
+  //     return res.status(200).json({
+  //       success:"total갱신"
+  //     })
+  //   })
+    
 })
 
 app.post('/api/listnum',(req,res)=>{
@@ -155,6 +163,7 @@ let storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("file")
 
 app.post('/api/product/image', (req,res) => {
+  
   upload(req,res, err => {
     if(err) {
       return res.json({success:false, err})
@@ -167,10 +176,14 @@ app.post('/api/product/image', (req,res) => {
   })
 })
 
+app.delete('/api/product/image/delete',(req,res) => {
+
+})
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
 app.get('*', (req, res) => {
+  res.header("Access-Control-Allow-Origin","*");
   res.sendFile(path.join(__dirname, '/public/index.html'));
 });

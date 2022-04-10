@@ -1,0 +1,10 @@
+import {UPLOAD_PRODUCT} from "../_actions/types";
+
+export default function(state = {}, action) {
+    switch(action.type) {
+        case UPLOAD_PRODUCT:
+            return {...state, productData: action.payload}
+        default:
+            return state;
+    }
+}

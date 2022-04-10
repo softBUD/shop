@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 
 function SignUp(props) {
 
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const reg = /^(?=.*[a-zA-z])(?=.*[0-9]).{6,15}$/
     const regTrim = /\s/g;
     const regKor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
@@ -92,7 +92,7 @@ function SignUp(props) {
             userName: Name,
             password: PW
         }
-        dispath(signUpUser(body))
+        dispatch(signUpUser(body))
         .then(response=> {
             if(response.payload.success) {
                 props.history.push('/')

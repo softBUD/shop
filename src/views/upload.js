@@ -1,14 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDirections, faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
+import { faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Dropzone from 'react-dropzone'
+import {useDispatch, useSelector} from 'react-redux';
+import { uploadProduct } from '../_actions/product_action';
+import {auth} from '../_actions/user_action';
+import Dropzone, { useDropzone } from 'react-dropzone'
 
-function Upload() {
+function Upload(props) {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user.userData);
     const [Title,TitleState] = useState("");
     const [Price,PriceState] = useState(0);
     const [Images,ImageState] = useState([]);
     const [Option,OptionState] = useState("");
+    const [Stock,StockState] = useState(0);
 
     const proTitleHandler = (e) => {
         TitleState(e.currentTarget.value);
@@ -21,19 +27,25 @@ function Upload() {
         PriceState(e.currentTarget.value);
     }
     const proOptionHandler = (e) => {
-        OptionState(Title);
         OptionState(e.currentTarget.value);
     }
-    const preview = Images.map(file => (
-        <div key={file.name} className="proInputImageCon">
-            <img className="proInputImage"
-              src={file.preview}/>
-        </div>
-        ))
+    const proStockHandler = (e) => {
+        StockState(e.currentTarget.value)
+    }
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+        isDragAccept,
+        isDragReject
+      } = useDropzone({
+        accept: '.jpeg,.png'
+      });
+
     const onDropHandler = (files) => {
         const formData = new FormData();
         const config = {
-            header: {'content-type' : 'multipart/form-data'}
+            header: {'content-type' : 'multipart/form-data'},
             //어떤 타입의 파일인지 정의를 해줌 request 받을때 에러없이 받도록.
         }
         
@@ -43,32 +55,61 @@ function Upload() {
         .then(response => {
             if(response.data.success) {
                 console.log(response.data);
-                ImageState(files.map(file => Object.assign(file,{
-                    preview:URL.createObjectURL(file)
-                })));
-
-        } else {
-           console.log(response.data);
+                ImageState([...Images,`${response.data.filePath}`])
+                } else {
+                console.log(response.data);
         }
     })
 }
+const onSubmitHandler = (e) => {
+    e.preventDefault();
+    
+    let body = {
+        writer:user._id,
+        title: Title,
+        price:Price,
+        image: Images,
+        stock: Stock
+    }
+    dispatch(uploadProduct(body))
+    .then(response=> {
+        if(response.payload.success) {
+            props.history.push('/')
+        } else {
+            console.log(response.payload);
+            console.log(Images);
+            alert("Error")
+        }
+    })
+}
+    const onDeleteHandler = (e) => {
+        ImageState([]);
+    }
+
     return (
         <div className='productFormContainer'>
-            <form className='productForm'>
+            <form onSubmit = {onSubmitHandler} className='productForm'>
                 <label className='productLabel'>상품이미지</label>
                 <br></br>
                 <Dropzone className="inputDropzone" onDrop={onDropHandler}>
                     {({getRootProps, getInputProps}) => (
                         <section className='proInputSection'>
-                        <div  {...getRootProps()} className="proInputCon">
+                        <div  {...getRootProps()}>
                             <input {...getInputProps()} />
                             <div className='uploadIconCon' id='newFile'><FontAwesomeIcon icon={faFileArrowUp} className="uploadIcon"/></div>
                         </div>
-                        {preview}
+                        {
+                            Images.map((file,index) => (
+                                <div key={index} className="proInputImageCon">
+                                    <img className="proInputImage"
+                                      src={`http://localhost:5000/${file}`} onClick={onDeleteHandler}/>
+                                </div>
+                                ))
+                        }
                         </section>
                     )}
                 </Dropzone>
-                
+                <div className='dropzoneDesc'>이미지 파일만 업로드 가능 <br></br>클릭하거나 파일을 직접 드래그하세요.</div>
                 <br></br>
                 <label className='productLabel'>상품명</label>
                 <br></br>
@@ -81,7 +122,11 @@ function Upload() {
                 <label className='productLabel' >옵션</label>
                 <br></br>
                 <input type="text" className='productInput' onChange={proOptionHandler} value={Option}/>
-                <br></br><button className='productSubmit'>등록</button>
+                <br></br>
+                <label className='productLabel' >재고</label>
+                <br></br>
+                <input type="text" className='productInput' onChange={proStockHandler} value={Stock}/>
+                <br></br><input type="submit" value="등록" className='productSubmit'/>
 
             </form>
         </div>

@@ -402,6 +402,10 @@ table {
   width: 250px;
   height: 250px;
 }
+.dropzoneDesc {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
 .productSubmit {
   padding: 1rem 3rem;
   border: none;
