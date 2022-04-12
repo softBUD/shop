@@ -3,8 +3,7 @@ import { faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
-import { uploadProduct } from '../_actions/product_action';
-import {auth} from '../_actions/user_action';
+import {withRouter} from "react-router-dom";
 import Dropzone, { useDropzone } from 'react-dropzone'
 
 function Upload(props) {
@@ -64,26 +63,33 @@ function Upload(props) {
 const onSubmitHandler = (e) => {
     e.preventDefault();
     
+    if(!Title || !Price || !Stock) {
+        return alert("모든 정보를 입력해주세요.")
+    }
     let body = {
         writer:user._id,
         title: Title,
         price:Price,
+        option:Option,
         image: Images,
         stock: Stock
     }
-    dispatch(uploadProduct(body))
-    .then(response=> {
-        if(response.payload.success) {
+    axios.post('/api/product/upload',body)
+    .then(response => {
+        if(response.data.success) {
+            alert("상품업로드 성공");
             props.history.push('/')
-        } else {
-            console.log(response.payload);
-            console.log(Images);
-            alert("Error")
-        }
-    })
+          }  else {
+                alert("상품 업로드 실패");
+            }
+        })
 }
-    const onDeleteHandler = (e) => {
-        ImageState([]);
+    const onDeleteHandler = (image) => {
+        const currentIndex = Images.indexOf(image);
+
+        let newImages = [...Images]
+        newImages.splice(currentIndex, 1); //현재 인덱스로부터 한개 삭제
+        ImageState(newImages);
     }
 
     return (
@@ -101,8 +107,8 @@ const onSubmitHandler = (e) => {
                         {
                             Images.map((file,index) => (
                                 <div key={index} className="proInputImageCon">
-                                    <img className="proInputImage"
-                                      src={`http://localhost:5000/${file}`} onClick={onDeleteHandler}/>
+                                    <img onClick={onDeleteHandler} className="proInputImage"
+                                      src={`http://localhost:5000/${file}`} />
                                 </div>
                                 ))
                         }
@@ -133,4 +139,4 @@ const onSubmitHandler = (e) => {
     )
 }
 
-export default Upload;
+export default withRouter(Upload);

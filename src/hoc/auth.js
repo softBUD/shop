@@ -21,7 +21,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                 if(!response.payload.isAuth) {
                     //로그인 하지 않은 상태
                     if(option) {
-                        props.history.push('/user/login')
+                        props.history.push('/api/user/login')
                     }
                 } else {
                     //로그인 한 상태이고 어드민 권한이 없는 상태 (inAdmin이 false)

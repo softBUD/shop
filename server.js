@@ -106,50 +106,7 @@ app.post('/api/product/upload',(req,res)=> {
       success:true
     })
   })
-
-  // ListNum.findOne({name:"productNumber"},
-  // (err,result)=> {
-  //   if (err) return res.json({success:false,err});
-  //   const total = result.totalPost;
-  //   product.save((err,productInfo) => {
-  //   if (err) return res.json({ sucess: false, err})
-  //   return res.status(200).json({
-  //       success:"datasave"
-  //     })
-  //   })
-  //   product._id = total + 1;
-  // })
-
-  // ListNum.findOneAndUpdate({name:"productNumber"},
-  //   {$inc: {totalPost:1}},
-  //   (err,total)=> {
-  //     if(err) return res.json({success:false,err})
-  //     return res.status(200).json({
-  //       success:"total갱신"
-  //     })
-  //   })
-    
 })
-
-app.post('/api/listnum',(req,res)=>{
-  const listnum = new ListNum(req.body);
-  listnum.save((err,number) => {
-    if (err) return res.json({success:false,err})
-    return res.status(200).json({
-      success:true
-    })
-  })
-})
-
-app.get('/api/product/get',async(req,res)=>{
-  res.header("Access-Control-Allow-Origin","*");
-  try{
-    const list = await Product.find().exec();
-    res.json(list);
-    } catch(e) {
-    res.status(500).send(e);
-  }
-});
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
