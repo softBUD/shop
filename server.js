@@ -96,18 +96,26 @@ app.get('/api/user/logout',auth,(req,res)=>{
       })
   })
 })
-
 app.post('/api/product/upload',(req,res)=> {
   const product = new Product(req.body);
-
-  product.save((err,productInfo) => {
-    if (err) return res.json({ sucess: false,err})
-    return res.status(200).json({
-      success:true
+  ListNum.findOne({name:"productNumber"},
+  (err,result)=> {
+    if (err) return res.json({success:false,err});
+    const total = result.totalPost;
+    product.save((err,productInfo) => {
+    if (err) return res.json({ sucess: false, err});
     })
+    product._id = total + 1;
   })
+  ListNum.findOneAndUpdate({name:"productNumber"},
+    {$inc: {totalPost:1}},
+    (err,total)=> {
+      if(err) return res.json({success:false,err})
+      return res.status(200).json({
+        success:"total갱신"
+      })
+    })
 })
-
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')

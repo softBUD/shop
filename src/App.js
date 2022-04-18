@@ -83,13 +83,6 @@ function Navmenu(props) {
 }
 
 function Home (props) {
-  useEffect(()=>{
-          axios.get(`/api/product/get`)
-          .then((result)=> {
-          props.productState([...result.data])
-          }).catch(()=>{/*요청실패시 실행*/})
-  },[])
-
   return (
     <div className='homeContainer'>
       <div className='carouselWrapper' id='carousel_1'>

@@ -1,13 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import axios from 'axios';
-import {useDispatch, useSelector} from 'react-redux';
+import { useSelector} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import Dropzone, { useDropzone } from 'react-dropzone'
 
 function Upload(props) {
-    const dispatch = useDispatch();
     const user = useSelector(state => state.user.userData);
     const [Title,TitleState] = useState("");
     const [Price,PriceState] = useState(0);
@@ -63,10 +62,10 @@ function Upload(props) {
 const onSubmitHandler = (e) => {
     e.preventDefault();
     
-    if(!Title || !Price || !Stock) {
+    if(!Title || !Price || !Stock || !Option) {
         return alert("모든 정보를 입력해주세요.")
     }
-    let body = {
+    const body = {
         writer:user._id,
         title: Title,
         price:Price,

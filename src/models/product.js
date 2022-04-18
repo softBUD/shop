@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const productSchema = mongoose.Schema({
-    _id:Number,
+    _id:{
+        type:Number
+    },
     wirter:{
         type:Schema.Types.ObjectId,
         ref:'User'
@@ -11,7 +13,6 @@ const productSchema = mongoose.Schema({
         unique:1,
         lowercase:true,
     },
-
     price:{
         type:Number,
     },
