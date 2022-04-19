@@ -16,9 +16,10 @@ import lipstick from './images/lipstick.png';
 import Cart from './views/cart.js';
 import Detail from './views/detail.js';
 import Login from './views/login.js';
-import SignUp from './views/signUp.js';
+import Signup from './views/signup.js';
 import Auth from './hoc/auth.js';
 import Upload from './views/upload.js';
+import List from './views/list.js';
 import axios from 'axios';
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,11 +37,11 @@ function App() {
   <BrowserRouter>
     <Switch>
     <Route path='/user/login' component={Auth(Login, false)} />
-    <Route path="/user/signup" component={Auth(SignUp,false)}></Route>
+    <Route path="/user/signup" component={Auth(Signup,false)}></Route>
     <Route path="/upload" component={Auth(Upload,true)}/>
     <div className="App">
       <Navmenu/>
-      <Route path="/" component={Auth(Home, null)}></Route>
+      <Route path="/" component={Auth(List, false)}/>
       <Route path="/detail/:id" component={Auth(Detail,null)}></Route>
       <Route path="/api/product/cart" component={Cart}/>
     </div>
@@ -78,36 +79,15 @@ function Navmenu(props) {
             <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
           </div>
       </header>
-    </div>
-  )
-}
-
-function Home (props) {
-  return (
-    <div className='homeContainer'>
+      <div className='homeContainer'>
       <div className='carouselWrapper' id='carousel_1'>
             <img src={main} alt="carousel_images" className='carouselImage'/>
             <div className='carouselText'>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
             Perferendis recusandae excepturi omnis saepe molestiae? </div>
       </div>
-      <Container className='listContainer'>
-        <Row className='listWrap'>
-          { props.product &&
-            props.product.map(function(a,i) {
-              return (
-                <Col className='listContent' key={props.product[i]._id}>
-                  <Link to={'/detail/'+i}><img className="listImg" src={props.proImg[i]} alt="productImages" /></Link>
-                  <div>{props.product[i].name}</div>
-                  <div>{props.product[i].price}</div>
-                </Col>
-              )
-            })
-          }
-        </Row>
-      </Container>
+    </div>
     </div>
   )
 }
-
 
 export default withRouter(App);

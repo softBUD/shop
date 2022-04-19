@@ -12,6 +12,7 @@ const {auth} = require('./middelware/auth');
 const bodyParser = require('body-parser');
 const { faArrowRightRotate } = require('@fortawesome/free-solid-svg-icons');
 const { privateDecrypt } = require('crypto');
+const { off } = require('process');
 const port = process.env.PORT || 5000;
 
 
@@ -140,11 +141,15 @@ app.post('/api/product/image', (req,res) => {
     });
   })
 })
-// app.post("/api/product/get", (req,res) => {
+app.post("/api/product/get", (req,res) => {
+  //product collection에 들어있는 모든 상품 가져옴
+  Product.find()
+  .exec((err,productInfo) => {
+    if(err) return res.json({success:false,err})
+    return res.status(200).json({success: true, productInfo})
+  })
+})
 
-//   Product.find()
-//   .
-// })
 app.delete('/api/product/image/delete',(req,res) => {
 
 })
