@@ -140,7 +140,11 @@ app.post('/api/product/image', (req,res) => {
     });
   })
 })
+// app.post("/api/product/get", (req,res) => {
 
+//   Product.find()
+//   .
+// })
 app.delete('/api/product/image/delete',(req,res) => {
 
 })

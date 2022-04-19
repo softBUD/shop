@@ -4,7 +4,7 @@ const productSchema = mongoose.Schema({
     _id:{
         type:Number
     },
-    wirter:{
+    writer:{
         type:Schema.Types.ObjectId,
         ref:'User'
     },

@@ -61,12 +61,12 @@ function Upload(props) {
 }
 const onSubmitHandler = (e) => {
     e.preventDefault();
-    
+
     if(!Title || !Price || !Stock || !Option) {
         return alert("모든 정보를 입력해주세요.")
     }
     const body = {
-        writer:user._id,
+        writer: user._id, //state에 저장된 user의 id값 저장
         title: Title,
         price:Price,
         option:Option,
