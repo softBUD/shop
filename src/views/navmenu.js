@@ -42,7 +42,7 @@ function Navmenu(props) {
         <div className='homeContainer'>
         <div className='carouselWrapper' id='carousel_1'>
               <img src={main} alt="carousel_images" className='carouselImage'/>
-              <div className='carouselText'>Lorem ipsum dolor sit amet consectetur adipisicing elit. </div>
+              <div className='carouselText'>Lorem ipsum dolor sit amet</div>
         </div>
       </div>
       </div>
