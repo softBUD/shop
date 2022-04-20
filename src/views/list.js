@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import axios from 'axios'
 import {withRouter} from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 
 function List() {
 
@@ -8,7 +10,6 @@ function List() {
         axios.post("/api/product/get")
         .then(response => {
             if (response.data.success) {
-                console.log(response.data)
             } else {
 
             }
@@ -17,7 +18,7 @@ function List() {
 
     return (
         <div>
-
+            
         </div>
     )
 }

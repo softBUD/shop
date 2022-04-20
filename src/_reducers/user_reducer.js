@@ -1,12 +1,9 @@
 import {LOGIN_USER, SIGNUP_USER, AUTH_USER} from "../_actions/types";
-const initailState = {
-    user: [],
-    isLoading:false,
-    idEditing:false,
-    productBeingEdited: null
+const initialState = {
+    isLoggedIn:false
 }
 
-export default function(state = initailState, action) {
+export default function(state = initialState, action) {
     switch(action.type) {
         case LOGIN_USER:
         return {...state, loginSuccess: action.payload}
@@ -15,7 +12,7 @@ export default function(state = initailState, action) {
             return {...state, signup: action.payload}
         break;
         case AUTH_USER:
-            return {...state, userData: action.payload}
+            return {...state, isLoggedIn:action.payload.isAuth, userData: action.payload}
         break;
         default:
             return state;
