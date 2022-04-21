@@ -13,6 +13,7 @@ function Upload(props) {
     const [Images,ImageState] = useState([]);
     const [Option,OptionState] = useState("");
     const [Stock,StockState] = useState(0);
+    const [Category,CategoryState] = useState("");
 
     const proTitleHandler = (e) => {
         TitleState(e.currentTarget.value);
@@ -29,6 +30,9 @@ function Upload(props) {
     }
     const proStockHandler = (e) => {
         StockState(e.currentTarget.value)
+    }
+    const proCategoryHandler = (e) => {
+        CategoryState(e.currentTarget.value)
     }
     const {
         getRootProps,
@@ -71,7 +75,8 @@ const onSubmitHandler = (e) => {
         price:Price,
         option:Option,
         image: Images,
-        stock: Stock
+        stock: Stock,
+        category: Category
     }
     axios.post('/api/product/upload',body)
     .then(response => {
@@ -131,6 +136,10 @@ const onSubmitHandler = (e) => {
                 <label className='productLabel' >재고</label>
                 <br></br>
                 <input type="text" className='productInput' onChange={proStockHandler} value={Stock}/>
+                <br></br>
+                <label className='productLabel' >카테고리</label>
+                <br></br>
+                <input type="text" className='productInput' onChange={proCategoryHandler} value={Category}/>
                 <br></br><input type="submit" value="등록" className='productSubmit'/>
 
             </form>
