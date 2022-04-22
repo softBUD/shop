@@ -10,27 +10,33 @@ function List() {
     const [product,productState] = useState([]);
     const [Checked,CheckedState] = useState("");
     const [Filter,FilterState] = useState([...continents])
+    
+    
 
-    useEffect(()=> {
-        getProduct();   
-    },[])
-   
+    const  totalHandler = (e) => {
+        CheckedState(null);
+    }
     const CheckedHandler = (e) => {
         CheckedState(e.currentTarget.value);
     }
-    const getProduct = ()=> {
-        axios.post("/api/product/get")
-        .then(response => {
-            if (response.data.success) {
+
+   
+    useEffect (()=> {
+        const body = {
+        category: Checked
+        }
+    axios.post("/api/product/category", body)
+    .then(response => {
+            if(response.data.success) {
                 productState(response.data.productInfo)
             } else {
-                alert("상품 리스트 조회 실패")
+                alert("상품리스트 조회 실패");
             }
         })
-    }
+      
+    },[Checked])
 
     const productList = product.map((product, index) => {
-
         return (
             <div key={product._id} className='proListContainer'>
                 <img src={`http://localhost:5000/${product.image}`} alt="prodictImage" className='proListImage'/>
@@ -44,12 +50,14 @@ function List() {
         <>
             <div className='bestSeller'>Best seller</div>
             <div className="radioContainer">
+                <input type="radio" value="전체" checked={Checked == null} onChange={totalHandler}/>
+                <label htmlFor="radio">전체</label>
             {
                 Filter.map((value,index) => {
                     return(
-                        <div key={value._id} className="filterContainer">
-                        <input type="radio" name={value.name} id={value.name} value={value.name} key={value.index} checked={Checked === value.name} onChange={(e)=>{CheckedHandler(e);} }/>
-                        <label key={value.name} htmlFor={value.name} className="radioButton">{value.name}</label>
+                        <div key={value.name} className="filterContainer">
+                        <input type="radio" value={value.name} key={value._id} checked={Checked == value.name} onChange={(e)=>{CheckedHandler(e);} }/>
+                        <label key={value.index} htmlFor={value.name}>{value.name}</label>
                         </div>
                     )
                 })
@@ -57,6 +65,7 @@ function List() {
         </div>
             <div className='proList'>
                 {productList}
+                
             </div>
         </>
     )

@@ -87,7 +87,7 @@ function SignUp(props) {
         if(PW !== PWCheck) {
             return alert("비밀번호가 동일하지 않습니다.")
         }
-        let body = {
+        const body = {
             email: Email+"@"+Domain,
             userName: Name,
             password: PW
