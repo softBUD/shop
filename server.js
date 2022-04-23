@@ -144,23 +144,25 @@ app.post('/api/product/image', (req,res) => {
 
 app.post("/api/product/get", (req,res) => {
   //product collection에 들어있는 모든 상품 가져옴
+  //더보기 기능을 위한 변수들
+
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = parseInt(req.body.skip);
+  Product.find()
+    .limit(limit)
+    .exec((err,productInfo) => {
+    if(err) return res.json({success:false,err})
+    return res.status(200).json({success: true, productInfo, postSize:productInfo.length})
+    })
     
 })
 
 app.post ("/api/product/category", (req,res) => {
-  if(!req.body.category) {
-    Product.find()
-    .exec((err,productInfo) => {
-    if(err) return res.json({success:false,err})
-    return res.status(200).json({success: true, productInfo})
-    })
-  }
-  else {
+
     Product.findOne({"category":{$eq:req.body.category}},(err,productInfo) => {
     if(err) return res.json({success:false,err})
     return res.status(200).json({success:true, productInfo})
   })
-  }
 })
 app.delete('/api/product/image/delete',(req,res) => {
 

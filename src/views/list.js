@@ -1,40 +1,62 @@
 import React, {useEffect,useState} from 'react'
 import axios from 'axios'
-import {continents} from './section/datas'
+import { RadioBox } from 'antd';
 import {withRouter} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
+import { continents } from './section/datas';
 
 function List() {
-    
+    const [Skip, setSkip] = useState(0)
+    const [Limit, setLimit] = useState(8)
+    const[PostSize,setPostSize] = useState(0);
     const [product,productState] = useState([]);
-    const [Checked,CheckedState] = useState("");
-    const [Filter,FilterState] = useState([...continents])
-    
-    
 
-    const  totalHandler = (e) => {
-        CheckedState(null);
-    }
-    const CheckedHandler = (e) => {
-        CheckedState(e.currentTarget.value);
-    }
+    const [Filters, setFilters] = useState({
+        continents: [],
+    })
 
-   
-    useEffect (()=> {
-        const body = {
-        category: Checked
+    
+    useEffect(()=>{
+        const variables = {
+            skip: Skip,
+            limit: Limit,
         }
-    axios.post("/api/product/category", body)
-    .then(response => {
+
+        getProducts(variables)
+    },[])
+
+    const loadMoreHandler = () => {
+        let skip = Skip + Limit;
+
+        const variables = {
+            skip: skip,
+            limit: Limit,
+            loadMore: true
+            
+        }
+        getProducts(variables)
+        setSkip(skip)
+
+    }
+
+    const getProducts = (variables) => {
+       
+        axios.post("/api/product/get", variables)
+        .then(response => {
             if(response.data.success) {
+                if(variables.loadMore) {
+                    productState([...product,response.data.productInfo])
+                }
                 productState(response.data.productInfo)
+                setPostSize(response.data.postSize);
             } else {
                 alert("상품리스트 조회 실패");
             }
         })
-      
-    },[Checked])
+    }
+
+   
 
     const productList = product.map((product, index) => {
         return (
@@ -50,24 +72,14 @@ function List() {
         <>
             <div className='bestSeller'>Best seller</div>
             <div className="radioContainer">
-                <input type="radio" value="전체" checked={Checked == null} onChange={totalHandler}/>
-                <label htmlFor="radio">전체</label>
-            {
-                Filter.map((value,index) => {
-                    return(
-                        <div key={value.name} className="filterContainer">
-                        <input type="radio" value={value.name} key={value._id} checked={Checked == value.name} onChange={(e)=>{CheckedHandler(e);} }/>
-                        <label key={value.index} htmlFor={value.name}>{value.name}</label>
-                        </div>
-                    )
-                })
-            }
-        </div>
+            </div>
             <div className='proList'>
                 {productList}
-                
             </div>
-        </>
+            { PostSize >= Limit &&
+            <button className='readMoreBtn' onClick={loadMoreHandler}>더보기</button>
+            }
+            </>
     )
 }
 
