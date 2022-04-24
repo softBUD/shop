@@ -7,9 +7,9 @@ import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import { continents } from './section/datas';
 
 function List() {
-    const [Skip, setSkip] = useState(0)
-    const [Limit, setLimit] = useState(8)
-    const[PostSize,setPostSize] = useState(0);
+    const [Skip, setSkip] = useState(0) //데이터 시작할 부분
+    const [Limit, setLimit] = useState(6) // 몇개의 데이터를 가져올지
+    const[Total,setTotal] =useState(0);
     const [product,productState] = useState([]);
 
     const [Filters, setFilters] = useState({
@@ -26,9 +26,10 @@ function List() {
         getProducts(variables)
     },[])
 
-    const loadMoreHandler = () => {
+    const loadMoreHandler = (e) => {
         let skip = Skip + Limit;
 
+        
         const variables = {
             skip: skip,
             limit: Limit,
@@ -46,10 +47,12 @@ function List() {
         .then(response => {
             if(response.data.success) {
                 if(variables.loadMore) {
-                    productState([...product,response.data.productInfo])
+                    //더보기버튼 작동시 기존 데이터 + 새 데이터 setstate
+                    productState([...product,...response.data.productInfo])
+                } else {
+                    productState(response.data.productInfo)
+                    setTotal(response.data.total); 
                 }
-                productState(response.data.productInfo)
-                setPostSize(response.data.postSize);
             } else {
                 alert("상품리스트 조회 실패");
             }
@@ -76,7 +79,7 @@ function List() {
             <div className='proList'>
                 {productList}
             </div>
-            { PostSize >= Limit &&
+            { Total > product.length &&
             <button className='readMoreBtn' onClick={loadMoreHandler}>더보기</button>
             }
             </>
