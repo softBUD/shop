@@ -25,19 +25,17 @@ function Navmenu(props) {
       <div className='headerNavContainer'>
         <header className='headerNav'>
             <div className='logo'>
-              <Link to="/" className='linkNone' id='cosme'>
+              <Link to="/" className='linkNone'>
                 <div className='logoTitle'>Cosme</div>
               </Link>
             </div>
             <div className='headerNavMenu'>
-              {isLogged == false ? <a href="/user/login" className='linkNone'>로그인</a> : null}
-              {isLogged == false ? <a href="/user/signup" className='linkNone'>회원가입</a> : null}
-              <br></br><div onClick={onLogoutHandler} className='linkNone'>로그아웃</div>
-              <a href="/upload" className='linkNone'>상품등록</a>
+              {isLogged == false ? <a href="/user/login" className='linkNone navClick'>로그인</a> : null}
+              {isLogged == false ? <a href="/user/signup" className='linkNone navClick'>회원가입</a> : null}
+              {isLogged == true ? <div onClick={onLogoutHandler} className='linkNone navClick'>로그아웃</div> : null}
+              {isLogged == true ? <a href="/upload" className='linkNone navClick'>상품등록</a> : null}
             </div>
-            <div>
-              <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
-            </div>
+            <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
         </header>
         <div className='homeContainer'>
         <div className='carouselWrapper' id='carousel_1'>

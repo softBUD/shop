@@ -65,24 +65,22 @@ function List() {
         return (
             <div key={product._id} className='proListContainer'>
                 <img src={`http://localhost:5000/${product.image}`} alt="prodictImage" className='proListImage'/>
-                <div key={product.index}>{product.title}</div>
-                <div key={product.title}>{product.price}</div>
+                <div className="productDesc"key={product.index}>{product.title}</div>
+                <div className="productDesc" key={product.title}>{product.price}</div>
             </div>
         )
         
     })
     return (
-        <>
+        <div className='productContainer'>
             <div className='bestSeller'>Best seller</div>
-            <div className="radioContainer">
-            </div>
             <div className='proList'>
                 {productList}
+                { Total > product.length &&
+                <button className='readMoreBtn' onClick={loadMoreHandler}>더보기</button> }
             </div>
-            { Total > product.length &&
-            <button className='readMoreBtn' onClick={loadMoreHandler}>더보기</button>
-            }
-            </>
+               
+        </div>
     )
 }
 
