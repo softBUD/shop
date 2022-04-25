@@ -18,7 +18,7 @@ import Login from './views/login.js';
 import Signup from './views/signup.js';
 import Auth from './hoc/auth.js';
 import Upload from './views/upload.js';
-import List from './views/list.js';
+import Landing from './views/landing.js';
 import Navmenu from './views/navmenu';
 import axios from 'axios';
 import './App.css';
@@ -42,7 +42,7 @@ function App() {
     <Route path="/upload" component={Auth(Upload,true)}/>
     <div className="App">
       <Navmenu></Navmenu>
-      <Route path="/" component={Auth(List, null)}/>
+      <Route path="/" component={Auth(Landing, null)}/>
       <Route path="/detail/:id" component={Auth(Detail,null)}></Route>
       <Route path="/api/product/cart" component={Cart}/>
     </div>

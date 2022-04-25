@@ -3,6 +3,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@import url('https://css.gg/search.css');
 input {
   border: none;
 }
@@ -130,9 +131,8 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-.App {
-  margin: 0 auto;
+.root {
+  margin: 0;
 }
 #carousel_1 {
   margin: 0 auto;
@@ -195,8 +195,6 @@ table {
 }
 .linkNone {
   text-decoration: none;
-  
-
 }
 .linkNone:hover {
   color: #fff;
@@ -448,8 +446,8 @@ table {
   margin-left: 20px;
 }
 .proListImage {
-  width: 350px;
-  height: 350px;
+  width: 20rem;
+  height: 20rem;
 }
 .productDesc {
   font-size: 18px;
@@ -486,8 +484,70 @@ table {
   color: #797979;
   text-decoration: underline;
 }
+.searchForm {
+  margin: 0 auto;
+  
+  margin-top: 10px;
+  text-align: center;
+  width: 20rem;
+}
+.searchInput {
+  border-bottom: 1px solid #797979;
+  width: 20rem;
+  height: 50px;
+}
+.searchButton {
+  background-color: #fff;
+  box-sizing: border-box;
+  position: relative;
+  left: 92%;
+  bottom: 30px;
+  display: block;
+  transform: scale(var(--ggs,1));
+  width: 16px;
+  height: 16px;
+  border: 2px solid;
+  border-radius: 100%;
+  margin-left: -4px;
+  margin-top: -4px
+}
 
+.searchButton::after {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  border-radius: 3px;
+  width: 2px;
+  height: 8px;
+  background: currentColor;
+  transform: rotate(-45deg);
+  top: 10px;
+  left: 12px
+}
+.footerContainer {
+  background-color: #ededed;
+  height: 15%;
+  width: 100%;
+}
 
+.footerText {
+  margin-left: 10px;
+  font-size: 12px;
+  text-align: left;
+  line-height: 30px;
+}
+
+.footerIcons {
+  font-size: 13px;
+}
+.iconLink {
+  text-decoration: none;
+  color: #00092C;
+}
+.iconLink:hover {
+  color: #00092C;
+}
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/ 
 @media all and (min-width:768px) and (max-width:1023px) {
   #carousel_1{
@@ -496,12 +556,6 @@ table {
   }
   .carouselImage {
     grid-template-columns: 1/span 2;
-  }
-  .carouselProImage1{
-    display: none;
-  }
-  .carouselProImage2{
-    display: none;
   }
   .carouselText1 {
     display: none;
@@ -514,15 +568,10 @@ table {
     width: 100%;
   }
   .carouselImage {
-    grid-template-columns: 1/span 2;
+    width: 100%;
   }
-  .carouselProImage1{
-    display: none;
-  }
-  .carouselProImage2{
-    display: none;
-  }
-  .carouselText1 {
+  
+  .carouselText {
     display: none;
   }
   .readMoreBtn {

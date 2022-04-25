@@ -2,16 +2,18 @@ import React, {useEffect,useState} from 'react'
 import axios from 'axios'
 import { RadioBox } from 'antd';
 import {withRouter} from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import { continents } from './section/datas';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
-function List() {
+import Search from './search';
+
+function Landing() {
     const [Skip, setSkip] = useState(0) //데이터 시작할 부분
     const [Limit, setLimit] = useState(6) // 몇개의 데이터를 가져올지
     const[Total,setTotal] =useState(0);
     const [product,productState] = useState([]);
-
+    const [searchTerm,setSearchTerm] = useState("");
     const [Filters, setFilters] = useState({
         continents: [],
     })
@@ -41,6 +43,11 @@ function List() {
 
     }
 
+    const updateSearchTerm = (newSearch) => {
+        setSearchTerm(newSearch);
+    }
+
+    console.log(searchTerm);
     const getProducts = (variables) => {
        
         axios.post("/api/product/get", variables)
@@ -72,16 +79,25 @@ function List() {
         
     })
     return (
-        <div className='productContainer'>
-            <div className='bestSeller'>Best seller</div>
-            <div className='proList'>
-                {productList}
-                { Total > product.length &&
-                <button className='readMoreBtn' onClick={loadMoreHandler}>더보기</button> }
+        <div className='landing'>
+            <div className='productContainer'>
+                <div className='bestSeller'>Best seller</div>
+                <Search refreshFunction={updateSearchTerm}></Search>
+                <div className='proList'>
+                    {productList}
+                    { Total > product.length &&
+                    <button className='readMoreBtn' onClick={loadMoreHandler}>더보기</button> }
+                </div>
+                <footer className='footerContainer'>
+                    <div className='footerText'>본 사이트는 포트폴리오용으로 제작되었습니다.
+                    <br/><a href="https://github.com/softBUD/shop" className="iconLink"><FontAwesomeIcon icon={faGithub} className="footerIcons"/></a>
+                    <span> 주니어 개발자 이혜영</span>
+                    <div id="footerTextTel">Tel 010-5663-7339</div>
+                    </div>
+                </footer>
             </div>
-               
         </div>
     )
 }
 
-export default withRouter(List);
+export default withRouter(Landing);
