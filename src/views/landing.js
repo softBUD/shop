@@ -44,10 +44,17 @@ function Landing() {
     }
 
     const updateSearchTerm = (newSearch) => {
+        let body = {
+            skip: 0,
+            Limit: Limit,
+            searchTerm: newSearch
+        }
+
+        setSkip(0);
         setSearchTerm(newSearch);
+        getProducts(body)
     }
 
-    console.log(searchTerm);
     const getProducts = (variables) => {
        
         axios.post("/api/product/get", variables)
@@ -82,7 +89,7 @@ function Landing() {
         <div className='landing'>
             <div className='productContainer'>
                 <div className='bestSeller'>Best seller</div>
-                <Search refreshFunction={updateSearchTerm}></Search>
+                <Search getProducts={getProducts} refreshFunction={updateSearchTerm}></Search>
                 <div className='proList'>
                     {productList}
                     { Total > product.length &&

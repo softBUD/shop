@@ -150,8 +150,21 @@ app.post("/api/product/get", (req,res) => {
 
   let limit = req.body.limit ? parseInt(req.body.limit) : 100;
   let skip = parseInt(req.body.skip) ?  parseInt(req.body.skip) : 0;
+  let searchTerm = req.body.searchTerm
+  const regex = new RegExp(searchTerm,"i")
 
-  ListNum.findOne({name:"productNumber"},
+
+  if(searchTerm) {
+    Product.find()
+      .find({title: {"$regex":regex}})
+      .skip(skip)
+      .limit(limit)
+      .exec((err,productInfo) => {
+      if(err) return res.json({success:false,err})
+      return res.status(200).json({success: true, productInfo})
+      })
+  } else {
+    ListNum.findOne({name:"productNumber"},
   (err,result)=> {
     if (err) return res.json({success:false,err});
     const total = result.totalPost;
@@ -161,8 +174,9 @@ app.post("/api/product/get", (req,res) => {
       .exec((err,productInfo) => {
       if(err) return res.json({success:false,err})
       return res.status(200).json({success: true, productInfo, total: total})
-    })
-  })   
+      })
+    })   
+  }
 })
 
 app.post ("/api/product/category", (req,res) => {

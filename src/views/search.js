@@ -7,6 +7,14 @@ function Search(props) {
     const [SearchTerm, setSearchTerm] = useState("");
     const searchHandler = (e) => {
         setSearchTerm(e.currentTarget.value);
+
+        if(e.currentTarget.value == "") {
+            const variables = {
+                skip: props.Skip,
+                limit: props.Limit,
+            }
+            props.getProducts(variables);
+        }
     }
     const submitSearchHandler = (e) => {
         e.preventDefault();
