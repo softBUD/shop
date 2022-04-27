@@ -186,9 +186,18 @@ app.post ("/api/product/category", (req,res) => {
     return res.status(200).json({success:true, productInfo})
   })
 })
-app.delete('/api/product/image/delete',(req,res) => {
 
+app.post("/api/product/products_by_id", (req,res) => {
+  let type = req.query.type
+  let productId = req.query.id
+
+  Product.find()
+      .exec((err,productInfo) => {
+      if(err) return res.json({success:false,err})
+      return res.status(200).json({success: true, productInfo})
+      })
 })
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

@@ -3,12 +3,11 @@ import { withRouter,Link} from 'react-router-dom';
 import main from '../images/main.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { useSelector } from 'react-redux';
 
 
 function Navmenu(props) {
-
   const isLogged = useSelector(state=>state.user.isLoggedIn);
   const onLogoutHandler = () => {
     axios.get('/api/user/logout')
@@ -37,12 +36,6 @@ function Navmenu(props) {
             </div>
             <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
         </header>
-        <div className='homeContainer'>
-        <div className='carouselWrapper' id='carousel_1'>
-              <img src={main} alt="carousel_images" className='carouselImage'/>
-              <div className='carouselText'>Lorem ipsum dolor sit amet</div>
-        </div>
-      </div>
       </div>
     )
   }

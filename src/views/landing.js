@@ -1,11 +1,11 @@
 import React, {useEffect,useState} from 'react'
 import axios from 'axios'
 import { RadioBox } from 'antd';
+import main from "../images/main.jpg";
 import {withRouter} from "react-router-dom";
 import { continents } from './section/datas';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-
 import Search from './search';
 
 function Landing() {
@@ -78,7 +78,7 @@ function Landing() {
     const productList = product.map((product, index) => {
         return (
             <div key={product._id} className='proListContainer'>
-                <img src={`http://localhost:5000/${product.image}`} alt="prodictImage" className='proListImage'/>
+                <a href={`/api/product/${product._id}`}><img src={`http://localhost:5000/${product.image}`} alt="prodictImage" className='proListImage'/></a>
                 <div className="productDesc"key={product.index}>{product.title}</div>
                 <div className="productDesc" key={product.title}>{product.price}</div>
             </div>
@@ -87,6 +87,12 @@ function Landing() {
     })
     return (
         <div className='landing'>
+            <div className='homeContainer'>
+                <div className='carouselWrapper' id='carousel_1'>
+                <img src={main} alt="carousel_images" className='carouselImage'/>
+                <div className='carouselText'>Lorem ipsum dolor sit amet</div>
+                </div>
+            </div>
             <div className='productContainer'>
                 <div className='bestSeller'>Best seller</div>
                 <Search getProducts={getProducts} refreshFunction={updateSearchTerm}></Search>
