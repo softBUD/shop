@@ -1,6 +1,5 @@
 import React, {useEffect,useState} from 'react'
 import axios from 'axios'
-import { RadioBox } from 'antd';
 import main from "../images/main.jpg";
 import {withRouter} from "react-router-dom";
 import { continents } from './section/datas';
