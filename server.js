@@ -187,11 +187,10 @@ app.post ("/api/product/category", (req,res) => {
   })
 })
 
-app.post("/api/product/products_by_id", (req,res) => {
+app.get("/api/product/products_by_id", (req,res) => {
   let type = req.query.type
   let productId = req.query.id
-
-  Product.find()
+  Product.find({'_id':{ $in:productId }})
       .exec((err,productInfo) => {
       if(err) return res.json({success:false,err})
       return res.status(200).json({success: true, productInfo})
