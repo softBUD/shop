@@ -10,7 +10,7 @@ const {ListNum} = require('./src/models/listnum');
 const cookieParser = require('cookie-parser');
 const {auth} = require('./middelware/auth');
 const bodyParser = require('body-parser');
-const { faArrowRightRotate } = require('@fortawesome/free-solid-svg-icons');
+const { faArrowRightRotate, faLessThanEqual } = require('@fortawesome/free-solid-svg-icons');
 const { privateDecrypt } = require('crypto');
 const { off } = require('process');
 const port = process.env.PORT || 5000;
@@ -110,6 +110,7 @@ app.post('/api/product/upload',(req,res)=> {
   })
   ListNum.findOneAndUpdate({name:"productNumber"},
     {$inc: {totalPost:1}},
+    {new:true},
     (err,total)=> {
       if(err) return res.json({success:false,err})
       return res.status(200).json({
@@ -195,6 +196,49 @@ app.get("/api/product/products_by_id", (req,res) => {
       if(err) return res.json({success:false,err})
       return res.status(200).json({success: true, productInfo})
       })
+})
+app.post("/api/product/addToCart", auth, (req,res) => {
+  //1.해당하는 유저 정보를 가져옴
+
+  User.findOne({ _id: req.user._id},
+    (err,userInfo) => {
+      let duplicate = false;
+      //2. 가져온 정보에서 카트에 넣으려하는 상품이 이미 존재하는지 확인
+      userInfo.cart.forEach((item)=>{
+        if(item.id === req.body.productId)
+          duplicate = true;
+      })
+
+      if(duplicate) {
+        //이미 상품이 있음
+        User.findOneAndUpdate({_id:req.user._id, "cart.id":req.body.productId},
+          {$inc : { "cart.$.quantity": 1 }},
+          {new:true},
+          (err,userInfo) => {
+            if(err) return res.status(400).json({success: false,err})
+            res.status(200).send(userInfo.cart)
+          })
+      } else {
+        User.findOneAndUpdate(
+          { _id: req.user._id },
+          {
+            $push:{
+              cart:{
+                id:req.body.productId,
+                quantity:1,
+                date:Date.now()
+            }
+          }
+        }, {new:true},
+        (err,userInfo) => {
+          if(err) return res.status(400).json({success: false,err})
+            res.status(200).send(userInfo.cart)
+          }
+        )
+      }
+    })
+
+  
 })
 
 app.listen(port, () => {

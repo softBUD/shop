@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import {addToCart} from '../_actions/user_action'
 import { withRouter } from 'react-router-dom';
 
 function Detail (props) {
@@ -8,6 +9,9 @@ function Detail (props) {
     const [Product,setProduct] = useState([]);
     const productId = props.match.params.productId
 
+    const clickHandler = () => {
+        dispatch(addToCart(props.detail._id))
+    }
     useEffect(()=> {
         
     axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
