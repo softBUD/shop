@@ -3,6 +3,12 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@font-face {
+  font-family: 'S-CoreDream-3Light';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 @import url('https://css.gg/search.css');
 input {
   border: none;
@@ -142,7 +148,7 @@ table {
   flex-direction: row;
 }
 .carouselImage {
-  width: 45%;
+  width: 30%;
 }
 
 .carouselText {
@@ -434,22 +440,20 @@ table {
 .proList {
   margin-top: 45px;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 23rem 23rem 23rem;
+  grid-template-rows: 25rem 25rem;
   text-align: center;
   align-content: center;
   justify-content: center;
   box-sizing: border-box;
 }
 
-.proListContainer {
-  margin-left: 20px;
-}
 .proListImage {
-  width: 15rem;
-  height: 15rem;
+ width: 20rem;
+ height: 20rem;
 }
+
 .productDesc {
   font-size: 16px;
   margin-top: 5px;
@@ -472,22 +476,26 @@ table {
   margin-left: 10px;
 
 }
-
-.readMoreBtn {
-  margin-top: 10px;
-  margin-bottom: 5px;
-  width: 80%;
-  text-align: end;
-  border: none;
-  background: none;
-  font-size: 18px;
-  font-weight: 700;
-  color: #797979;
-  text-decoration: underline;
+.readMore {
+  display: block;
 }
+.readMoreBtn {
+  font-family: 'S-CoreDream-3Light';
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 5px 35px;
+  text-align: match-parent;
+  border: 2px solid #b8b8b8;
+  font-size: 15px;
+  font-weight: 600;
+  color: #8946a6;
+  border-radius: 5px;
+  background: none;
+  }
 .searchForm {
   margin: 0 auto;
-  
   margin-top: 10px;
   text-align: center;
   width: 20rem;
@@ -663,6 +671,10 @@ table {
     grid-template-columns: 12rem 10rem;
     grid-template-rows: 10rem 1rem 5rem;
     column-gap: 1rem;
+  }
+
+  .proList {
+    grid-template-columns: 1fr;
   }
 } 
 

@@ -205,13 +205,13 @@ app.post("/api/product/addToCart", auth, (req,res) => {
       let duplicate = false;
       //2. 가져온 정보에서 카트에 넣으려하는 상품이 이미 존재하는지 확인
       userInfo.cart.forEach((item)=>{
-        if(item.id === req.body.productId)
+        if(item._id === req.body.productId)
           duplicate = true;
       })
 
       if(duplicate) {
         //이미 상품이 있음
-        User.findOneAndUpdate({_id:req.user._id, "cart.id":req.body.productId},
+        User.findOneAndUpdate({_id:req.user._id, "cart._id":req.body.productId},
           {$inc : { "cart.$.quantity": 1 }},
           {new:true},
           (err,userInfo) => {

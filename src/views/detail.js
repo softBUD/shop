@@ -10,7 +10,7 @@ function Detail (props) {
     const productId = props.match.params.productId
 
     const clickHandler = () => {
-        dispatch(addToCart(props.detail._id))
+        dispatch(addToCart(productId))
     }
     useEffect(()=> {
         
@@ -40,7 +40,7 @@ function Detail (props) {
                     <option value={Product.option} className='detailSelectOp'>{Product.option}</option>
                 </select>
                 <div className='detailBtn'>
-                    <button className='detailCartBtn'>장바구니</button>
+                    <button className='detailCartBtn' onClick={clickHandler}>장바구니</button>
                     <button className='detailPayBtn'>결제하기</button>
                 </div>
             </div>

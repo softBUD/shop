@@ -89,7 +89,7 @@ function Landing() {
             <div className='homeContainer'>
                 <div className='carouselWrapper' id='carousel_1'>
                 <img src={main} alt="carousel_images" className='carouselImage'/>
-                <div className='carouselText'>Lorem ipsum dolor sit amet</div>
+                <div className='carouselText'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima quisquam nam debitis, nisi, enim vel iste quas est</div>
                 </div>
             </div>
             <div className='productContainer'>
@@ -97,9 +97,9 @@ function Landing() {
                 <Search getProducts={getProducts} refreshFunction={updateSearchTerm}></Search>
                 <div className='proList'>
                     {productList}
-                    { Total > product.length &&
-                    <button className='readMoreBtn' onClick={loadMoreHandler}>더보기</button> }
                 </div>
+                { Total > product.length &&
+                    <div className='readMore'><button className='readMoreBtn' onClick={loadMoreHandler}>+ 더보기</button></div> }
                 <footer className='footerContainer'>
                     <div className='footerText'>본 사이트는 포트폴리오용으로 제작되었습니다.
                     <br/><a href="https://github.com/softBUD/shop" className="iconLink"><FontAwesomeIcon icon={faGithub} className="footerIcons"/></a>
