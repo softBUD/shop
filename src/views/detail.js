@@ -29,7 +29,7 @@ function Detail (props) {
     axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
 
     .then(response => {
-        if(response.data.success) {
+        if(response.data) {
             setProduct(response.data.productInfo[0])
             
         } else {

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -7,44 +6,55 @@ import {getCartItems} from '../_actions/user_action'
 function Cart(props) {
     const dispatch = useDispatch();
     const [Product,setProduct] = useState([]);
-    const [Cart,setCart] = useState([]);
-
+    console.log(Product);
     useEffect(()=>{
         let cartItems = [];
-        //리덕스 유저 state 안에 상품이 들어있는지 확인
+        //유저 데이터 true이고, cart에 상품이 있을때
         if(props.user.userData && props.user.userData.cart) {
             if(props.user.userData.cart.length > 0){
                 props.user.userData.cart.forEach(item => {
-                    //상품이 들어있으면 변수에 id값 배열로 넣어줌
+                    //userData.cart : id,quantity,option
+                    //상품이 들어있으면 상품들의 id값 배열로 넣어줌
                     cartItems.push(item.id)
                 })
-                //상품 아이디들, 유저정보 안의 카트 데이터를 보내줌
-                dispatch(getCartItems(cartItems, props.user.userData.cart));
+                //상품 아이디, 유저정보 안의 카트 데이터 넣어서 실행
+                dispatch(getCartItems(cartItems, props.user.userData.cart))
+                .then((response)=> {
+                    setProduct(response.payload);
+                })
             }
         }
        },[props.user.userData])
     return (
         <div>
-            <div>내 카트</div>
-            <div>
-                <div>
-                    <div>이미지</div>
-                    <div>상품명</div>
-                    <div>수량</div>
-                    <div>옵션</div>
-                    <div>주문일시</div>
-                </div>
-                <div>
-                   { Product.map((item,index) => {
-                       <div key={item.index}>
-                      <div key={index}><img src={`http://localhost:5000/${item.image}`} alt="productImage" /></div> 
-                      <div key={item.title}>{item.title}</div>
-                      </div>
-                   })}
-                   <div></div>
-                </div>
-            </div>
+            <h2>내 카트</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <td>이미지</td>
+                        <td>상품명</td>
+                        <td>옵션</td>
+                        <td>가격</td>
+                        <td>수량</td>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            {
+                                Product.length > 0 &&
+                                <>
+                                <td className='cartProductInfo'><img src={`http://localhost:5000/${Product[0].image}`} alt="" /></td>
+                                <td className='cartProductInfo'><div>{Product[0].title}</div></td>
+                                <td className='cartProductInfo'><div>{Product[0].option}</div></td>
+                                <td className='cartProductInfo'><div>{Product[0].price}</div></td>
+                                <td className='cartProductInfo'><div>{Product[0].quantity}</div></td>
+                                </>
+                            }
+                        </tr>
+                    </tbody>
+            </table>
         </div>
+    
     )
 }
 

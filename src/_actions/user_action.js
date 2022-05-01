@@ -52,9 +52,11 @@ export function getCartItems(cartItems,userCart) {
         //product Cllection에서 가져온 후
         //수량 정보를 넣어준다.
         userCart.forEach((cartProduct, index) => {
-            response.data.productInfo.forEach((productData, index)=>{
+            //가져온 user > userData > 카트안의 데이터들
+            response.data.forEach((productData, index)=>{
+                //가져온 상품정보 데이터들
                 if(cartProduct.id === productData._id) {
-                    response.data.productInfo[index].quantity = cartProduct.quantity
+                    response.data[index].quantity = cartProduct.quantity
                 }
             })
         })
