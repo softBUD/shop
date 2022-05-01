@@ -10,6 +10,7 @@ import Auth from './hoc/auth.js';
 import Upload from './views/upload.js';
 import Landing from './views/landing.js';
 import Navmenu from './views/navmenu';
+import Footer from './views/footer.js';
 import axios from 'axios';
 import './App.css';
 
@@ -28,10 +29,11 @@ function App() {
     <Route path='/user/login' component={Auth(Login, false)} />
     <Route path="/user/signup" component={Auth(Signup,false)}></Route>
     <Route path="/upload" component={Auth(Upload,true)}/>
+    <Route path="/api/cart" component={Auth(Cart,true)}/>
     <Route path="/api/product/:productId" component={Auth(Detail,null)}></Route>
-    <Route path="/api/product/cart" component={Cart}/>
     <Route path="/" component={Auth(Landing, null)}/>
   </Switch>
+  <Footer></Footer>
   </BrowserRouter>
   );
 }

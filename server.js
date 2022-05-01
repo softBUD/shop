@@ -82,7 +82,8 @@ app.get('/api/user/auth',auth,(req,res) => {
     email:req.user.email,
     userName:req.user.userName,
     role:req.user.role,
-    image:req.user.image
+    cart:req.user.cart,
+    history:req.user.history
   })
 
 })
@@ -191,6 +192,14 @@ app.post ("/api/product/category", (req,res) => {
 app.get("/api/product/products_by_id", (req,res) => {
   let type = req.query.type
   let productId = req.query.id
+
+  if(type === "array") {
+    let ids = req.query.id.split(',') 
+    //받아온 쿼리의 아이디들을 배열로 만들어줌
+    productId = ids.map(item => {
+      return item
+    })
+  }
   Product.find({'_id':{ $in:productId }})
       .exec((err,productInfo) => {
       if(err) return res.json({success:false,err})
@@ -205,20 +214,20 @@ app.post("/api/product/addToCart", auth, (req,res) => {
       let duplicate = false;
       //2. 가져온 정보에서 카트에 넣으려하는 상품이 이미 존재하는지 확인
       userInfo.cart.forEach((item)=>{
-        if(item._id === req.body.productId)
+        if(item.id === req.body.productId)
           duplicate = true;
       })
 
       if(duplicate) {
         //이미 상품이 있음
-        User.findOneAndUpdate({_id:req.user._id, "cart._id":req.body.productId},
-          {$inc : { "cart.$.quantity": 1 }},
-          {new:true},
+        User.findOneAndUpdate({ _id:req.user._id, "cart.$.id":req.body.productId},
+          {$inc : {"cart.$.quantity":1}},
           (err,userInfo) => {
             if(err) return res.status(400).json({success: false,err})
             res.status(200).send(userInfo.cart)
           })
       } else {
+        //동일상품이 없음
         User.findOneAndUpdate(
           { _id: req.user._id },
           {
@@ -226,6 +235,7 @@ app.post("/api/product/addToCart", auth, (req,res) => {
               cart:{
                 id:req.body.productId,
                 quantity:1,
+                option:req.body.productOp,
                 date:Date.now()
             }
           }
@@ -240,7 +250,24 @@ app.post("/api/product/addToCart", auth, (req,res) => {
 
   
 })
+// app.post ("/api/product/mycart",auth,(req,res) => {
+// //1. 유저정보 가져옴(유저의 카트안에 들어있는 정보도 가져옴)
+// User.findOne({ _id: req.user._id},
+//   (err,userInfo) => {
+//     if(err) return res.status(400).json({success:false,err})
+//     res.status(200).json({success:true,userInfo})
 
+//     //2. 카트안에있는 상품의 id를 찾아고, 상품정보를 가져옴
+//     Product.find({'_id':{ $in:userInfo.cart.$.id }})
+//       .exec((err,productInfo) => {
+//       if(err) return res.json({success:false,err})
+//       return res.status(200).json({success: true, userInfo, productInfo})
+//       })
+//       //3. 유저정보에 들어있는 수량, 옵션, 주문일시 보여줌
+//       //4. 상품정보에 있는 상품이미지, 상품명 보여줌
+
+//   })
+// })
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

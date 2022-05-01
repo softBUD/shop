@@ -3,9 +3,8 @@ import axios from 'axios'
 import main from "../images/main.jpg";
 import {withRouter} from "react-router-dom";
 import { continents } from './section/datas';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import Search from './search';
+import Footer from './footer';
 
 function Landing() {
     const [Skip, setSkip] = useState(0) //데이터 시작할 부분
@@ -77,7 +76,7 @@ function Landing() {
     const productList = product.map((product, index) => {
         return (
             <div key={product._id} className='proListContainer'>
-                <a href={`/api/product/${product._id}`}><img src={`http://localhost:5000/${product.image}`} alt="prodictImage" className='proListImage'/></a>
+                <a href={`/api/product/${product._id}`}><img src={`http://localhost:5000/${product.image}`} alt="productImage" className='proListImage'/></a>
                 <div className="productDesc"key={product.index}>{product.title}</div>
                 <div className="productDesc" key={product.title}>{product.price}</div>
             </div>
@@ -100,13 +99,6 @@ function Landing() {
                 </div>
                 { Total > product.length &&
                     <div className='readMore'><button className='readMoreBtn' onClick={loadMoreHandler}>+ 더보기</button></div> }
-                <footer className='footerContainer'>
-                    <div className='footerText'>본 사이트는 포트폴리오용으로 제작되었습니다.
-                    <br/><a href="https://github.com/softBUD/shop" className="iconLink"><FontAwesomeIcon icon={faGithub} className="footerIcons"/></a>
-                    <span> 주니어 개발자 이혜영</span>
-                    <div id="footerTextTel">Tel 010-5663-7339</div>
-                    </div>
-                </footer>
             </div>
         </div>
     )

@@ -1,16 +1,28 @@
 import axios from 'axios';
 import React, { Component, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import {addToCart} from '../_actions/user_action'
 import { withRouter } from 'react-router-dom';
 
 function Detail (props) {
+    const isLogged = useSelector(state=>state.user.isLoggedIn);
     const dispatch = useDispatch();
+    const [Option,setOption] = useState("");
     const [Product,setProduct] = useState([]);
     const productId = props.match.params.productId
 
-    const clickHandler = () => {
-        dispatch(addToCart(productId))
+    console.log(Option);
+    
+    const optionHanlder = (e) => {
+        setOption(e.currentTarget.value)
+        
+    }
+    const clickHandler = (e) => {
+        if(isLogged) {
+            dispatch(addToCart(productId,Option))
+        } else {
+            alert("로그인해주세요!");
+        }     
     }
     useEffect(()=> {
         
@@ -35,7 +47,7 @@ function Detail (props) {
                 <div className='detailDesc'>재고<span className='detailDescVal'>{Product.stock}</span></div>
             </div>
             <div className='detailPay'>
-                <select className="detailSelect">
+                <select className="detailSelect" onChange={optionHanlder}>
                     <option value="none" className='detailSelectOp'>옵션선택</option>
                     <option value={Product.option} className='detailSelectOp'>{Product.option}</option>
                 </select>

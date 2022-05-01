@@ -9,7 +9,9 @@
   font-weight: normal;
   font-style: normal;
 }
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 @import url('https://css.gg/search.css');
+
 input {
   border: none;
 }
@@ -480,7 +482,7 @@ table {
   display: block;
 }
 .readMoreBtn {
-  font-family: 'S-CoreDream-3Light';
+  font-family: Pretendard;
   display: block;
   margin: 0 auto;
   cursor: pointer;
@@ -534,10 +536,15 @@ table {
   top: 10px;
   left: 12px
 }
+
+
 .footerContainer {
-  background-color: #ededed;
-  height: 15%;
+  position: relative;
+  top:100%;
   width: 100%;
+  background-color: #ededed;
+  height: 100px;
+  margin-top: auto;
 }
 
 .footerText {
@@ -563,6 +570,7 @@ table {
   justify-content: center;
   display: grid;
   margin-top: 50px;
+  margin-bottom: 50px;
   grid-template-columns: 21rem 20rem;
   grid-template-rows: 5rem 10rem 5rem;
   column-gap: 2rem;

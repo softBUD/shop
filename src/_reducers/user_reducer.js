@@ -1,4 +1,4 @@
-import {LOGIN_USER, SIGNUP_USER, AUTH_USER, ADD_TO_CART} from "../_actions/types";
+import {LOGIN_USER, SIGNUP_USER, AUTH_USER, ADD_TO_CART, GET_CART_ITEMS} from "../_actions/types";
 const initialState = {
     isLoggedIn:false
 }
@@ -19,6 +19,8 @@ export default function(state = initialState, action) {
                 ...state.userData,
                 cart: action.payload
             }}
+            case GET_CART_ITEMS:
+            return {...state, cartProduct:action.payload}
         default:
             return state;
     }

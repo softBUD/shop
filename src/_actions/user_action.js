@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import {USER_SERVER} from '../Config.js';
-import {LOGIN_USER, SIGNUP_USER, AUTH_USER, ADD_TO_CART} from './types';
+import {LOGIN_USER, SIGNUP_USER, AUTH_USER, ADD_TO_CART, GET_CART_ITEMS} from './types';
 
 export function loginUser(dataToSubmit) {
-    const request = axios.post('/api/user/login',dataToSubmit) //데이터저장
+    const request = axios.post(`/api/user/login`,dataToSubmit) //데이터저장
     .then(response => response.data)
     return {
         type:LOGIN_USER,
@@ -14,7 +14,7 @@ export function loginUser(dataToSubmit) {
 }
 
 export function signUpUser(dataToSubmit) {
-    const request = axios.post('/api/user/signup',dataToSubmit) //데이터저장
+    const request = axios.post(`/api/user/signup`,dataToSubmit) //데이터저장
     .then(response => response.data)
     return {
         type:SIGNUP_USER,
@@ -23,7 +23,7 @@ export function signUpUser(dataToSubmit) {
 }
 
 export function auth() { //get메소드이므로 body부분 불필요
-    const request = axios.get('/api/user/auth')
+    const request = axios.get(`/api/user/auth`)
     .then(response => response.data)
     return {
         type:AUTH_USER,
@@ -31,14 +31,37 @@ export function auth() { //get메소드이므로 body부분 불필요
     }
 }
 
-export function addToCart(id) {
+export function addToCart(id,option) {
     let body = {
-        productId : id
+        productId : id,
+        productOp: option
     }
-    const request = axios.post(`${USER_SERVER}/addToCart`,body) //데이터저장
+    const request = axios.post(`/api/product/addToCart`,body)
     .then(response => response.data)
     return {
         type:ADD_TO_CART,
+        payload: request
+    }
+}
+
+export function getCartItems(cartItems,userCart) {
+    //상품 아이디와 상품정보를 여러개 가져옴
+    const request = axios.get(`/api/product/products_by_id?id=${cartItems}&type=array`)
+    .then(response =>  {
+        //cartItem(상품 아이디값들)에 해당하는 정보들을
+        //product Cllection에서 가져온 후
+        //수량 정보를 넣어준다.
+        userCart.forEach((cartProduct, index) => {
+            response.data.productInfo.forEach((productData, index)=>{
+                if(cartProduct.id === productData._id) {
+                    response.data.productInfo[index].quantity = cartProduct.quantity
+                }
+            })
+        })
+        return response.data;
+    });
+    return {
+        type:GET_CART_ITEMS,
         payload: request
     }
 }

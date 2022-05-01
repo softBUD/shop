@@ -3,12 +3,15 @@ import { withRouter,Link} from 'react-router-dom';
 import main from '../images/main.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
-import { useEffect,useState } from 'react';
 import { useSelector } from 'react-redux';
 
 
 function Navmenu(props) {
   const isLogged = useSelector(state=>state.user.isLoggedIn);
+
+  const cartHandler = (e) => {
+    
+  }
   const onLogoutHandler = () => {
     axios.get('/api/user/logout')
     .then(response => {
@@ -34,7 +37,7 @@ function Navmenu(props) {
               {isLogged == true ? <div onClick={onLogoutHandler} className='linkNone navClick'>로그아웃</div> : null}
               {isLogged == true ? <a href="/upload" className='linkNone navClick'>상품등록</a> : null}
             </div>
-            <FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon>
+            {isLogged == true && <a href="/api/cart"><FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon></a>}
         </header>
       </div>
     )
