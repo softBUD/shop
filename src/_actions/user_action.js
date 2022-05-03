@@ -51,12 +51,13 @@ export function getCartItems(cartItems,userCart) {
         //cartItem(상품 아이디값들)에 해당하는 정보들을
         //product Cllection에서 가져온 후
         //수량 정보를 넣어준다.
-        userCart.forEach((cartProduct, index) => {
+        userCart.forEach((userCart, index) => {
             //가져온 user > userData > 카트안의 데이터들
             response.data.forEach((productData, index)=>{
                 //가져온 상품정보 데이터들
-                if(cartProduct.id === productData._id) {
-                    response.data[index].quantity = cartProduct.quantity
+                //유저 데이터 안에 있는 cart id값이 문자열로 저장되어있다.
+                if(parseInt(userCart.id) === productData._id) {
+                    response.data[index].quantity = userCart.quantity
                 }
             })
         })

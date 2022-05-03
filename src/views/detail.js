@@ -11,7 +11,7 @@ function Detail (props) {
     const [Product,setProduct] = useState([]);
     const productId = props.match.params.productId
 
-    console.log(Option);
+    console.log(Product);
     
     const optionHanlder = (e) => {
         setOption(e.currentTarget.value)
@@ -30,7 +30,7 @@ function Detail (props) {
 
     .then(response => {
         if(response.data) {
-            setProduct(response.data.productInfo[0])
+            setProduct(response.data[0])
             
         } else {
             alert("상품불러오기 실패")

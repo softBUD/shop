@@ -26,30 +26,35 @@ function Cart(props) {
         }
        },[props.user.userData])
     return (
-        <div>
-            <h2>내 카트</h2>
-            <table>
+        <div className='myCartContainer'>
+            <h2 id="myCart">내 카트</h2>
+            <table className='cartTable'>
                 <thead>
                     <tr>
-                        <td>이미지</td>
-                        <td>상품명</td>
-                        <td>옵션</td>
-                        <td>가격</td>
-                        <td>수량</td>
+                        <td className='cartTableTd'>이미지</td>
+                        <td className='cartTableTd'>상품명</td>
+                        <td className='cartTableTd' id='tableTdOption'>옵션</td>
+                        <td className='cartTableTd'>가격</td>
+                        <td className='cartTableTd'>수량</td>
                     </tr>
                 </thead>
                     <tbody>
+                        
+                            {   Product.length > 1 &&
+                                Product.map((item,index)=>{
+                                    return(
+                                    <tr key={index}>
+                                    <td key={item.index} className='cartProductInfo'><img src={`http://localhost:5000/${item.image}`} alt="productImage" /></td>
+                                    <td key={item.title} className='cartProductInfo' id='cartProTitle'>{item.title}</td>
+                                    <td key={item.option} className='cartProductInfo' id='cartProOption'>{item.option}</td>
+                                    <td key={item.price} className='cartProductInfo' id='cartProPrice'>{item.price}</td>
+                                    <td key={item.quantity} className='cartProductInfo' id='cartProQuantity'>{item.quantity}</td>
+                                    </tr>
+                                    )
+                                })}
+                        
                         <tr>
-                            {
-                                Product.length > 0 &&
-                                <>
-                                <td className='cartProductInfo'><img src={`http://localhost:5000/${Product[0].image}`} alt="" /></td>
-                                <td className='cartProductInfo'><div>{Product[0].title}</div></td>
-                                <td className='cartProductInfo'><div>{Product[0].option}</div></td>
-                                <td className='cartProductInfo'><div>{Product[0].price}</div></td>
-                                <td className='cartProductInfo'><div>{Product[0].quantity}</div></td>
-                                </>
-                            }
+                            {Product == null && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
                         </tr>
                     </tbody>
             </table>

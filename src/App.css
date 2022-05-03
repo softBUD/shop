@@ -4,13 +4,37 @@
    License: none (public domain)
 */
 @font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+ }
+ 
+ @font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype')
+ }
+ 
+ @font-face {
+  font-family: 'NanumBarunGothic';
+  font-style: normal;
+  font-weight: 300;
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
+  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
+ }
+ 
+@font-face {
   font-family: 'S-CoreDream-3Light';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-@import url('https://css.gg/search.css');
+
 
 input {
   border: none;
@@ -119,6 +143,8 @@ section {
 }
 body {
   line-height: 1;
+  font-family: 'NanumBarunGothic';
+
 }
 ol,
 ul {
@@ -642,13 +668,38 @@ table {
   color: #fff;
   height: 3rem;
 }
+.myCartContainer {
+  width: 95%;
+  margin-left:5%;
+}
+#myCart {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 30px;
+  font-family: 'S-CoreDream-3Light';
+}
+.cartTable {
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
 .cartProductInfo {
-  width: 100px;
+  width: 20rem;
   height: 100px;
+  margin: 0 auto;
+  vertical-align: middle;
+
 }
 .cartProductInfo img {
-  width: 50px;
-  height: 100px;
+  width: 55px;
+  height: 55px;
+}
+
+#cartProTitle {
+  font-weight: 700;
+}
+#cartProOption{
+  width: 450px;
 }
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/ 
 @media all and (min-width:768px) and (max-width:1023px) {
