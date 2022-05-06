@@ -6,7 +6,6 @@ import {getCartItems} from '../_actions/user_action'
 function Cart(props) {
     const dispatch = useDispatch();
     const [Product,setProduct] = useState([]);
-    console.log(Product);
     useEffect(()=>{
         let cartItems = [];
         //유저 데이터 true이고, cart에 상품이 있을때

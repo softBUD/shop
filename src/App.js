@@ -16,15 +16,18 @@ import './App.css';
 
 
 function App() {
+
   const dispatch = useDispatch();
   const [isLoggedIn,loggedInState] = useState(null);
   const [more,moreState] = useState(false);
   const [inven,invenState] = useState([50,60,70,80,90,100]);
   const [product, productState] = useState();
+  const [scroll,setScroll] = useState(0);
+  
+
 
   return (
   <BrowserRouter>
-  <Navmenu></Navmenu>
   <Switch>
     <Route path='/user/login' component={Auth(Login, false)} />
     <Route path="/user/signup" component={Auth(Signup,false)}></Route>

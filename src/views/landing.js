@@ -1,29 +1,72 @@
-import React, {useEffect,useState} from 'react'
+import React, {useEffect,useState,useRef} from 'react'
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 import main from "../images/main.jpg";
+import main2 from "../images/main2.jpg";
+import main3 from "../images/main3.jpg";
 import {withRouter} from "react-router-dom";
-import { continents } from './section/datas';
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faCartShopping, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import Search from './search';
-import Footer from './footer';
+import styled, {css} from 'styled-components'
+import Navmenu from './navmenu';
+
+
 
 function Landing() {
+
+    const isLogged = useSelector(state=>state.user.isLoggedIn);
+    const TOTAL_SLIDES = 2;
+    const [scroll,setScroll] = useState(0);
     const [Skip, setSkip] = useState(0) //데이터 시작할 부분
     const [Limit, setLimit] = useState(6) // 몇개의 데이터를 가져올지
-    const[Total,setTotal] =useState(0);
+    const [Total,setTotal] =useState(0);
+    const [Image,setImage] = useState([main,main2,main3]);
     const [product,productState] = useState([]);
     const [searchTerm,setSearchTerm] = useState("");
-    const [Filters, setFilters] = useState({
-        continents: [],
-    })
 
+
+    const handleFollow = () => {
+        setScroll(window.pageYOffset); // window 스크롤 값을 ScrollY에 저장
+      }
+    
+
+    useEffect(() => {
+        const watch = () => {
+            window.addEventListener('scroll', handleFollow);
+          }
+        console.log("ScrollY is ", scroll); // ScrollY가 변화할때마다 값을 콘솔에 출력
+
+        watch(); // addEventListener 함수를 실행
+        return () => {
+          window.removeEventListener('scroll', handleFollow); // addEventListener 함수를 삭제
+        }
+      }, [scroll])
+
+    const onLogoutHandler = () => {
+        axios.get('/api/user/logout')
+        .then(response => {
+          if(response.data.success) {
+            alert("로그아웃되었습니다.")
+            window.location.replace("/")
+          } else {
+            alert("로그아웃 실패")
+          }
+        })
+    }
     
     useEffect(()=>{
+       
+
         const variables = {
             skip: Skip,
             limit: Limit,
         }
-
+        
         getProducts(variables)
+        
     },[])
 
     const loadMoreHandler = (e) => {
@@ -83,13 +126,12 @@ function Landing() {
         )
         
     })
+  
+
     return (
         <div className='landing'>
-            <div className='homeContainer'>
-                <div className='carouselWrapper' id='carousel_1'>
-                <img src={main} alt="carousel_images" className='carouselImage'/>
-                <div className='carouselText'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima quisquam nam debitis, nisi, enim vel iste quas est</div>
-                </div>
+            <div className='headerNavContainer'>
+            <Navmenu scroll={scroll}></Navmenu>
             </div>
             <div className='productContainer'>
                 <div className='bestSeller'>Best seller</div>
@@ -98,7 +140,7 @@ function Landing() {
                     {productList}
                 </div>
                 { Total > product.length &&
-                    <div className='readMore'><button className='readMoreBtn' onClick={loadMoreHandler}>+ 더보기</button></div> }
+                    <div className='readMore'><button className='readMoreBtn' onClick={loadMoreHandler}>+ more</button></div> }
             </div>
         </div>
     )

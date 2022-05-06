@@ -2,16 +2,20 @@ import axios from 'axios'
 import { withRouter,Link} from 'react-router-dom';
 import main from '../images/main.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faBars} from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 
 function Navmenu(props) {
   const isLogged = useSelector(state=>state.user.isLoggedIn);
 
-  const cartHandler = (e) => {
-    
+  const onLoghanlder = (e) => {
+    if(isLogged === false) {
+      alert("로그인 후 이용할 수 있습니다.")
+    }
   }
+
   const onLogoutHandler = () => {
     axios.get('/api/user/logout')
     .then(response => {
@@ -23,21 +27,21 @@ function Navmenu(props) {
       }
     })
     }
+
+
+    
     return(
-      <div className='headerNavContainer'>
-        <header className='headerNav'>
-            <div className='logo'>
-              <Link to="/" className='linkNone'>
-                <div className='logoTitle'>Cosme</div>
-              </Link>
-            </div>
-            <div className='headerNavMenu'>
-              {isLogged == false ? <a href="/user/login" className='linkNone navClick'>로그인</a> : null}
-              {isLogged == false ? <a href="/user/signup" className='linkNone navClick'>회원가입</a> : null}
-              {isLogged == true ? <div onClick={onLogoutHandler} className='linkNone navClick'>로그아웃</div> : null}
-              {isLogged == true ? <a href="/upload" className='linkNone navClick'>상품등록</a> : null}
-            </div>
-            {isLogged == true && <a href="/api/cart"><FontAwesomeIcon icon={faCartShopping} className="cartIcon"></FontAwesomeIcon></a>}
+      <div>
+        <header className={props.scroll === 0 ? "headerNav" : "headerNav scrolled"}>
+        <FontAwesomeIcon icon={faBars} className={props.scroll === 0 ? "faBar" : "faBar scrolled"}></FontAwesomeIcon>
+        <div className="logo">
+          <Link to="/" className={props.scroll === 0 ? "logoTitle" : "logoTitle scrolled"}>Cosme</Link>
+        </div>
+          <div className='headerNavMenu'>
+            {isLogged == true ? <div onClick={onLogoutHandler} className='linkNone navClick'>로그아웃</div> : null}
+            {isLogged == true ? <a href="/upload" className='navClick'>상품등록</a> : null}
+          </div>
+          <Link to="/api/cart" onClick={e=>onLoghanlder(e)}><FontAwesomeIcon icon={faCartShopping} className={props.scroll === 0 ? "cartIcon" : "cartIcon scrolled"}></FontAwesomeIcon></Link>
         </header>
       </div>
     )

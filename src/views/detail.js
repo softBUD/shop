@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component, useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
+import Navmenu from './navmenu';
 import {addToCart} from '../_actions/user_action'
 import { withRouter } from 'react-router-dom';
 
@@ -38,6 +39,8 @@ function Detail (props) {
     })},[])
     
     return (
+        <div>
+        <Navmenu></Navmenu>
         <section className='detailContainer'>
             <img className='detailImage' src={`http://localhost:5000/${Product.image}`}/>
             <div className='detailContent'>
@@ -55,9 +58,9 @@ function Detail (props) {
                     <button className='detailCartBtn' onClick={clickHandler}>장바구니</button>
                     <button className='detailPayBtn'>결제하기</button>
                 </div>
-            </div>
-            
+            </div>  
         </section>
+        </div>
     )
 }
 

@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowUp} from '@fortawesome/free-solid-svg-icons';
 import React, {  useState } from 'react';
 import axios from 'axios';
+import Navmenu from './navmenu';
 import { useSelector} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import Dropzone, { useDropzone } from 'react-dropzone'
@@ -98,6 +99,7 @@ const onSubmitHandler = (e) => {
 
     return (
         <div className='productFormContainer'>
+            <Navmenu></Navmenu>
             <form onSubmit = {onSubmitHandler} className='productForm'>
                 <label className='productLabel'>상품이미지</label>
                 <br></br>
