@@ -1,4 +1,4 @@
-import React, {useEffect,useState,useRef} from 'react'
+import React, {useEffect,useState} from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
@@ -6,11 +6,8 @@ import main from "../images/main.jpg";
 import main2 from "../images/main2.jpg";
 import main3 from "../images/main3.jpg";
 import {withRouter} from "react-router-dom";
-import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import { faCartShopping, faBars } from '@fortawesome/free-solid-svg-icons';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import Search from './search';
-import styled, {css} from 'styled-components'
+import styled, {keyframes} from "styled-components";
 import Navmenu from './navmenu';
 
 
@@ -31,7 +28,6 @@ function Landing() {
     const handleFollow = () => {
         setScroll(window.pageYOffset); // window 스크롤 값을 ScrollY에 저장
       }
-    
 
     useEffect(() => {
         const watch = () => {
@@ -58,7 +54,6 @@ function Landing() {
     }
     
     useEffect(()=>{
-       
 
         const variables = {
             skip: Skip,
@@ -132,6 +127,9 @@ function Landing() {
         <div className='landing'>
             <div className='headerNavContainer'>
             <Navmenu scroll={scroll}></Navmenu>
+            <Welcome>Welcome to</Welcome>
+           <Cosme>Cosme</Cosme>
+           <Beauty>Beauty</Beauty>
             </div>
             <div className='productContainer'>
                 <div className='bestSeller'>Best seller</div>
@@ -145,5 +143,98 @@ function Landing() {
         </div>
     )
 }
+const show = keyframes`
+    0 {
+        opacity:0;
+    }
+    25% {
+        opacity:1;
+        top:270px;
+    }
+    50% {
+        z-index:1;
+        opacity:0;
+        top:200px;
+    }
+    65% {
+        z-index:-1;
+        opacity:0;
+    }
+    80% {
+        z-index:-1
+        opacity:0;
+    }
+    100% {
+        z-index:-1
+        opacity:0;
+    }
+`;
+const showSecond = keyframes`
+    0% {
+        z-index:-1;
+        opacity:0;
+    }
+    
+    50% {
+        z-index:-1;
+        opacity:0;
+    }
+    65% {
+        z-index:-1;
+        opacity:0;
+        top:270px;
+    }
+    80% {
+        z-index:1;
+        opacity:1;
+        top:200px;
+    }
+    100% {
+        z-index:0
+        opacity:0;
+        top:150px;
+    }
+`;
+
+const Welcome = styled.div`
+    &{
+    color:#fff;
+    font-size:65px;
+    position:relative;
+    top:280px;
+    margin-left:4rem;
+    }
+    &:after{
+        content:"";
+        border: 3px solid #fff;
+        background:#fff;
+        width:200px;
+        position:relative;
+        display:block;
+        top:55px;
+    }
+`;
+
+
+const Cosme = styled.div`
+    opacity:0;
+    color:#fff;
+    font-size:65px;
+    position:relative;
+    top:360px;
+    margin-left:4rem;
+    width:200px;
+    animation: ${show} 8s infinite;
+    `
+const Beauty = styled.div`
+    color:#fff;
+    opacity:0;
+    font-size:65px;
+    position:relative;
+    top:300px;
+    margin-left:4rem;
+    width:200px;
+    animation: ${showSecond} 8s infinite;
+    `
 
 export default withRouter(Landing);

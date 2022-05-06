@@ -167,6 +167,16 @@ table {
 .root {
   margin: 0;
 }
+.menuContainer {
+  position:fixed;
+  top:0;
+  z-index:999;
+  width:100%;
+  height:80vh;
+  background-color:#eee;
+
+}
+
 .headerNavContainer {
   background-image: url("./images/main.jpg");
   height: 100vh;
@@ -176,9 +186,11 @@ table {
   background-position: center;
 }
 
+
 .headerNav {
   padding: 20px 0;
   position: fixed;
+  z-index: 9999;
   top:0;
   display: flex;
   width: 100%;
@@ -187,7 +199,7 @@ table {
 .scrolled {
   color: #00092c;
   background-color: #ededed;
-  z-index: 999;
+  z-index: 99;
 }
 
 .logoTitle { 
@@ -701,35 +713,17 @@ table {
   .logoTitle {
     margin-left: 50px;
   }
-  #carousel_1{
-    background-color: #fff;
-    width: 100%;
+  .proList {
+    grid-template-columns: 25rem 25rem;
   }
-  .carouselImage {
-    width: 100%;
-  }
-  
-  .carouselText {
-    display: none;
-  }
-  }
+}
 /* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/ 
 @media all and (max-width:767px) {
   .logoTitle {
     margin-left: 30px;
     padding: 0 0;
   }
-  #carousel_1{
-    background-color: #fff;
-    width: 100%;
-  }
-  .carouselImage {
-    width: 100%;
-  }
-  
-  .carouselText {
-    display: none;
-  }
+
   .readMoreBtn {
   text-align: center;
   
