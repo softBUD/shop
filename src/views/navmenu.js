@@ -2,7 +2,7 @@ import axios from 'axios'
 import { withRouter,Link} from 'react-router-dom';
 import main from '../images/main.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faBars} from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faBars, faXmark} from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
@@ -40,18 +40,32 @@ function Navmenu(props) {
     
     return(
       <div>
-        <header className={(menu === true) || props.scroll === 0 ? "headerNav" : "headerNav scrolled"}>
-        <FontAwesomeIcon icon={faBars} className={menu === true || props.scroll === 0 ? "faBar" : "faBar scrolled"} onClick={onBarHandler}></FontAwesomeIcon>
-        <div className="logo">
-          <Link to="/" className={(menu === true) || props.scroll === 0  ? "logoTitle" : "logoTitle scrolled"}>Cosme</Link>
-        </div>
-          <div className='headerNavMenu'>
-            {isLogged == true ? <div onClick={onLogoutHandler} className='linkNone navClick'>로그아웃</div> : null}
-            {isLogged == true ? <a href="/upload" className='navClick'>상품등록</a> : null}
+          {menu == true && 
+        <div className="menuContainer">
+          <div className='navClickWrapper'>
+            {isLogged == false ? <a href="/user/signup" className="navClick">회원가입</a> : null}
+            {isLogged == false ? <a href="/user/login" className="navClick">로그인</a> : null}
+            {isLogged == true ? <div onClick={onLogoutHandler} className="navClick">로그아웃</div> : null}
+            {isLogged == true ? <a href="/upload" className="navClick">상품등록</a> : null}
+            <div className='copyright'>&copy; Copyright 2022 이혜영</div>
           </div>
-          <Link to="/api/cart" onClick={e=>onLoghanlder(e)}><FontAwesomeIcon icon={faCartShopping} className={props.scroll === 0 || (menu === true) ? "cartIcon" : "cartIcon scrolled"}></FontAwesomeIcon></Link>
+        </div>
+        }
+        <header className={ props.scroll === 0 ? "headerNav" : "headerNav scrolled"}>
+        {menu === false ? <FontAwesomeIcon icon={faBars} className={ props.scroll === 0 ? "faBar" : "faBar scrolled"} onClick={onBarHandler}></FontAwesomeIcon> 
+        : <FontAwesomeIcon onClick={onBarHandler} className={props.scroll === 0 ? "faBar cancleIcon" : "faBar cancleIcon"} icon={faXmark}></FontAwesomeIcon>}
+        
+        {menu === false && 
+        <div className="logo">
+          <Link to="/" className={ props.scroll === 0  ? "logoTitle" : "logoTitle scrolled"}>Cosme</Link>
+        </div>}
+
+        { menu ===false &&
+          <Link to="/api/cart" onClick={e=>onLoghanlder(e)}>
+            <FontAwesomeIcon icon={faCartShopping} className={props.scroll === 0? "cartIcon" : "cartIcon scrolled"}></FontAwesomeIcon>
+          </Link>
+        }
         </header>
-        {menu == true && <div className="menuContainer"></div>}
       </div>
     )
   }

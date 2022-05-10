@@ -10,6 +10,7 @@ function Footer () {
                 <br/><a href="https://github.com/softBUD/shop" className="iconLink"><FontAwesomeIcon icon={faGithub} className="footerIcons"/></a>
                 <span> 주니어 개발자 이혜영</span>
                 <div id="footerTextTel">Tel 010-5663-7339</div>
+                <div className='footerCopyright'>&copy; Copyright 2022 이혜영</div>
                 </div>
             </footer>
 )

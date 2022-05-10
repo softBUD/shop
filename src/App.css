@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,wght@1,600&display=swap");
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -168,13 +170,14 @@ table {
   margin: 0;
 }
 .menuContainer {
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
   position:fixed;
   top:0;
-  z-index:999;
   width:100%;
-  height:80vh;
+  height:90vh;
   background-color:#eee;
-
 }
 
 .headerNavContainer {
@@ -185,8 +188,12 @@ table {
   background-size: cover;
   background-position: center;
 }
-
-
+.cancleIcon {
+  position: relative;
+  cursor: pointer;
+  color: #00092c !important;
+  font-size: 40px !important;
+}
 .headerNav {
   padding: 20px 0;
   position: fixed;
@@ -194,33 +201,39 @@ table {
   top:0;
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
+
 .scrolled {
-  color: #00092c;
-  background-color: #ededed;
-  z-index: 99;
+   color: #00092c !important;
+  background-color: #F0ECE3;
+}
+.copyright {
+  position: relative;
+  margin-left: 50px;
+  top:58vh;
+}
+.logoImage {
+  width:30px;
+  height:30px;
 }
 
 .logoTitle { 
-  margin-left: 185px;
+  margin-left: 630px;
   color:#fff;
   display: inline;
   font-family: "Roboto Serif", sans-serif;
   font-size: 30px;
   text-decoration: none;
 }
-.logoTitle .scrolled {
-  z-index: 100;
-  color: #00092c !important;
-}
+
 .mainImage {
   width: 100%;
   height: 100%;
   contain: inherit;
 }
 .headerNavMenu {
-  display: flex;
+  z-index: 99999;
 }
 .linkNone {
   margin: 0;
@@ -238,21 +251,25 @@ table {
 }
 
 .faBar {
+  position: fixed;
+  left:25px;
   cursor: pointer;
-  padding: 0 45px;
   display: inline;
   text-align: left;
   font-size: 30px;
   color: #fff;
 }
-.scrolled {
-  color: #00092c !important;
+.navClickWrapper {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
 }
-.carFirst,
-.carSecond,
-.carThird {
-  width: 100%;
-  height: 450px;
+.navClick {
+  margin-top: 10px;
+  font-size: 20px;
+  color:#00092c;
+  text-decoration: none;
+  margin-left: 50px;
 }
 
 .cartIcon {
@@ -348,6 +365,7 @@ table {
   padding-top: 5rem;
   display: flex;
   flex-direction: column;
+  margin-bottom: 50px;
   width: 40vh;
 }
 .emailContainer {
@@ -407,17 +425,17 @@ table {
   margin: 0 auto;
 }
 .productForm {
-  margin-top: 3rem;
+  margin-top: 100px;
   text-align: center;
 }
 .productLabel {
   font-size: 15px;
   font-weight: 800;
-  margin: 10px 0;
+  margin: 50px 0;
 }
 .productInput {
   -webkit-appearance: none;
-  margin: 0px;
+  margin: 10px;
   font-size: 15px;
   box-sizing: border-box;
   padding: 0 13px;
@@ -431,7 +449,7 @@ table {
 .proInputSection {
   margin: 0 auto;
   width: 250px;
-  height: 250px;
+  height: 280px;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -467,6 +485,7 @@ table {
   border-radius: 5px;
 }
 .bestSeller {
+  font-family: 'Poppins', sans-serif;
   margin-top: 50px;
   text-align: center;
   font-weight: 600;
@@ -573,11 +592,12 @@ table {
 
 
 .footerContainer {
+  color: #fff;
   position: relative;
   top:100%;
   width: 100%;
-  background-color: #ededed;
-  height: 100px;
+  background-color: #636f85;
+  height: 130px;
   margin-top: auto;
 }
 
@@ -589,14 +609,14 @@ table {
 }
 
 .footerIcons {
-  font-size: 13px;
+  font-size: 16px;
 }
 .iconLink {
   text-decoration: none;
-  color: #00092C;
+  color: #fff;
 }
 .iconLink:hover {
-  color: #00092C;
+  color: #fff;
 }
 
 .detailContainer {
@@ -677,25 +697,27 @@ table {
   height: 3rem;
 }
 .myCartContainer {
-  width: 95%;
-  margin-left:5%;
+  margin-bottom: 100px;
 }
 #myCart {
-  margin-top: 20px;
-  text-align: left;
+  text-align: center;
+  margin-top: 10rem;
+  margin-bottom: 3rem;
   font-size: 30px;
   font-family: 'S-CoreDream-3Light';
 }
 .cartTable {
-  margin: 0 auto;
-  margin-top: 30px;
+  margin: auto auto;
 }
-
+.cartTableHead {
+ height: 30px;
+ text-align: center;
+}
 .cartProductInfo {
-  width: 20rem;
-  height: 100px;
+  text-align: center;
+  width: 100px;
   margin: 0 auto;
-
+  vertical-align: middle;
 }
 .cartProductInfo img {
   width: 55px;
@@ -706,12 +728,12 @@ table {
   font-weight: 700;
 }
 #cartProOption{
-  width: 450px;
+  width: 350px;
 }
 /* 테블릿 가로, 테블릿 세로 (해상도 768px ~ 1023px)*/ 
 @media all and (min-width:768px) and (max-width:1023px) {
   .logoTitle {
-    margin-left: 50px;
+    margin-left: 320px;
   }
   .proList {
     grid-template-columns: 25rem 25rem;
@@ -720,7 +742,7 @@ table {
 /* 모바일 가로, 모바일 세로 (해상도 480px ~ 767px)*/ 
 @media all and (max-width:767px) {
   .logoTitle {
-    margin-left: 30px;
+    margin-left: 130px;
     padding: 0 0;
   }
 

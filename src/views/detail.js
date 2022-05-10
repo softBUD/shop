@@ -11,8 +11,6 @@ function Detail (props) {
     const [Option,setOption] = useState("");
     const [Product,setProduct] = useState([]);
     const productId = props.match.params.productId
-
-    console.log(Product);
     
     const optionHanlder = (e) => {
         setOption(e.currentTarget.value)

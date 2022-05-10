@@ -209,42 +209,48 @@ app.get("/api/product/products_by_id", (req,res) => {
 app.post("/api/product/addToCart", auth, (req,res) => {
   //1.해당하는 유저 정보를 가져옴
 
-  User.findOne({ _id: req.user._id},
-    (err,userInfo) => {
-      //2. 가져온 정보에서 카트에 넣으려하는 상품이 이미 존재하는지 확인
-      userInfo.cart.forEach((item)=>{
-        if(item.id === req.body.productId) {
-        //이미 상품이 있음
-        User.findOneAndUpdate(
-        {"cart.id":req.body.productId},
-        {$inc : {"cart.$.quantity":1}},
-        {new:true},
-        (err,userInfo) => {
-          if(err) return res.status(400).json({success: false,err})
-          return res.status(200).send(userInfo.cart)
-        })
-      } else {
-        //동일상품이 없음
-        User.findOneAndUpdate(
-          { _id: req.user._id },
-          {
-            $push:{
-              cart:{
-                id:req.body.productId,
-                quantity:1,
-                option:req.body.productOp,
-                date:Date.now()
-            }
-          }
-        }, {new:true},
-        (err,userInfo) => {
-          if(err) return res.status(400).json({success: false,err})
-            return res.status(200).send(userInfo.cart)
-          }
-        )
-      }
+  User.findOne({ _id: req.user._id }, (err, userInfo) => {
+    let duplicate = false;
+
+    console.log(userInfo)
+
+    userInfo.cart.forEach((item) => {
+        if (item.id == req.body.productId) {
+            duplicate = true;
+        }
     })
-  })
+
+
+    if (duplicate) {
+        User.findOneAndUpdate(
+            { _id: req.user._id, "cart.id": req.body.productId },
+            { $inc: { "cart.$.quantity": 1 } },
+            { new: true },
+            (err, userInfo) => {
+                if (err) return res.json({ success: false, err });
+                res.status(200).json(userInfo.cart)
+            }
+        )
+    } else {
+        User.findOneAndUpdate(
+            { _id: req.user._id },
+            {
+                $push: {
+                    cart: {
+                        id: req.body.productId,
+                        quantity: 1,
+                        date: Date.now()
+                    }
+                }
+            },
+            { new: true },
+            (err, userInfo) => {
+                if (err) return res.json({ success: false, err });
+                res.status(200).json(userInfo.cart)
+            }
+        )
+    }
+})
 })
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

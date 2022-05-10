@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Navmenu from "./navmenu.js";
 import {getCartItems} from '../_actions/user_action'
 
 function Cart(props) {
+    
     const dispatch = useDispatch();
     const [Product,setProduct] = useState([]);
+    console.log(Product);
     useEffect(()=>{
         let cartItems = [];
         //유저 데이터 true이고, cart에 상품이 있을때
@@ -25,40 +28,42 @@ function Cart(props) {
         }
        },[props.user.userData])
     return (
-        <div className='myCartContainer'>
-            <h2 id="myCart">내 카트</h2>
-            <table className='cartTable'>
-                <thead>
-                    <tr>
-                        <td className='cartTableTd'>이미지</td>
-                        <td className='cartTableTd'>상품명</td>
-                        <td className='cartTableTd' id='tableTdOption'>옵션</td>
-                        <td className='cartTableTd'>가격</td>
-                        <td className='cartTableTd'>수량</td>
-                    </tr>
-                </thead>
-                    <tbody>
-                        
-                            {   Product.length > 1 &&
-                                Product.map((item,index)=>{
-                                    return(
-                                    <tr key={index}>
-                                    <td key={item.index} className='cartProductInfo'><img src={`http://localhost:5000/${item.image}`} alt="productImage" /></td>
-                                    <td key={item.title} className='cartProductInfo' id='cartProTitle'>{item.title}</td>
-                                    <td key={item.option} className='cartProductInfo' id='cartProOption'>{item.option}</td>
-                                    <td key={item.price} className='cartProductInfo' id='cartProPrice'>{item.price}</td>
-                                    <td key={item.quantity} className='cartProductInfo' id='cartProQuantity'>{item.quantity}</td>
-                                    </tr>
-                                    )
-                                })}
-                        
-                        <tr>
-                            {Product == null && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
+        <div className='cartWrapper'>
+            <Navmenu></Navmenu>
+            <div className='myCartContainer'>
+                <h2 id="myCart">내 카트</h2>
+                <table className='cartTable'>
+                    <thead>
+                        <tr className='cartTableHead'>
+                            <td className='cartTableTd'>이미지</td>
+                            <td className='cartTableTd'>상품명</td>
+                            <td className='cartTableTd' id='tableTdOption'>옵션</td>
+                            <td className='cartTableTd'>가격</td>
+                            <td className='cartTableTd'>수량</td>
                         </tr>
-                    </tbody>
-            </table>
+                    </thead>
+                        <tbody>
+                            
+                                {   Product.length > 0 &&
+                                    Product.map((item,index)=>{
+                                        return(
+                                        <tr key={index}>
+                                        <td key={item.index} className='cartProductInfo'><img src={`http://localhost:5000/${item.image}`} alt="productImage" /></td>
+                                        <td key={item.title} className='cartProductInfo' id='cartProTitle'>{item.title}</td>
+                                        <td key={item.option} className='cartProductInfo' id='cartProOption'>{item.option}</td>
+                                        <td key={item.price} className='cartProductInfo' id='cartProPrice'>{item.price}</td>
+                                        <td key={item.quantity} className='cartProductInfo' id='cartProQuantity'>{item.quantity}</td>
+                                        </tr>
+                                        )
+                                    })}
+                            
+                            <tr>
+                                {Product == null && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
+                            </tr>
+                        </tbody>
+                </table>
+            </div>
         </div>
-    
     )
 }
 

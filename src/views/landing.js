@@ -33,7 +33,6 @@ function Landing() {
         const watch = () => {
             window.addEventListener('scroll', handleFollow);
           }
-        console.log("ScrollY is ", scroll); // ScrollY가 변화할때마다 값을 콘솔에 출력
 
         watch(); // addEventListener 함수를 실행
         return () => {
@@ -202,16 +201,18 @@ const Welcome = styled.div`
     font-size:65px;
     position:relative;
     top:280px;
-    margin-left:4rem;
+    margin-left:2rem;
+    font-family: 'Poppins', sans-serif;
     }
     &:after{
         content:"";
         border: 3px solid #fff;
         background:#fff;
-        width:200px;
+        width:220px;
         position:relative;
         display:block;
         top:55px;
+        font-family: 'Poppins', sans-serif;
     }
 `;
 
@@ -222,8 +223,9 @@ const Cosme = styled.div`
     font-size:65px;
     position:relative;
     top:360px;
-    margin-left:4rem;
+    margin-left:2rem;
     width:200px;
+    font-family: 'Poppins', sans-serif;
     animation: ${show} 8s infinite;
     `
 const Beauty = styled.div`
@@ -232,8 +234,9 @@ const Beauty = styled.div`
     font-size:65px;
     position:relative;
     top:300px;
-    margin-left:4rem;
+    margin-left:2rem;
     width:200px;
+    font-family: 'Poppins', sans-serif;
     animation: ${showSecond} 8s infinite;
     `
 
