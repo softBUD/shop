@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import Navmenu from './navmenu';
 import {addToCart} from '../_actions/user_action'

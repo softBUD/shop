@@ -1,10 +1,9 @@
 import axios from 'axios'
 import { withRouter,Link} from 'react-router-dom';
-import main from '../images/main.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faBars, faXmark} from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 
 function Navmenu(props) {

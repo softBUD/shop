@@ -182,7 +182,6 @@ app.post("/api/product/get", (req,res) => {
 })
 
 app.post ("/api/product/category", (req,res) => {
-
     Product.findOne({"category":{$eq:req.body.category}},(err,productInfo) => {
     if(err) return res.json({success:false,err})
     return res.status(200).json({success:true, productInfo})
