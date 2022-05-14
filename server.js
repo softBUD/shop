@@ -10,9 +10,6 @@ const {ListNum} = require('./src/models/listnum');
 const cookieParser = require('cookie-parser');
 const {auth} = require('./middelware/auth');
 const bodyParser = require('body-parser');
-const { faArrowRightRotate, faLessThanEqual } = require('@fortawesome/free-solid-svg-icons');
-const { privateDecrypt } = require('crypto');
-const { off } = require('process');
 const port = process.env.PORT || 5000;
 
 
