@@ -4,7 +4,7 @@ import {signUpUser} from '../_actions/user_action';
 import {withRouter} from "react-router-dom";
 
 
-function SignUp(props) {
+function Signup(props) {
 
     const dispatch = useDispatch();
     const reg = /^(?=.*[a-zA-z])(?=.*[0-9]).{6,15}$/
