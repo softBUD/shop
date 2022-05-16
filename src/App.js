@@ -5,7 +5,7 @@ import { Route, BrowserRouter,withRouter, Switch ,Link,useHistory} from 'react-r
 import Cart from './views/cart.js';
 import Detail from './views/detail.js';
 import Login from './views/login.js';
-import Signup from './views/signup.js';
+import Signup from './views/sign.js';
 import Auth from './hoc/auth.js';
 import Upload from './views/upload.js';
 import Landing from './views/landing.js';
