@@ -50,7 +50,7 @@ function Cart(props) {
                         Product.map((item,index)=>{
                             return(
                             <tr key={index}>
-                            <td key={item.index} className='cartProductInfo'><img src={`http://34.229.215.70//${item.image}`} alt="productImage" /></td>
+                            <td key={item.index} className='cartProductInfo'><img src={`http://34.229.215.70:3000/${item.image}`} alt="productImage" /></td>
                             <td key={item.title} className='cartProductInfo' id='cartProTitle'>{item.title}</td>
                             <td key={item.option} className='cartProductInfo' id='cartProOption'>{item.option}</td>
                             <td key={item.price} className='cartProductInfo' id='cartProPrice'>{item.price}</td>
