@@ -8,7 +8,6 @@ function Cart(props) {
     
     const dispatch = useDispatch();
     const [Product,setProduct] = useState([]);
-    console.log(Product);
     useEffect(()=>{
         let cartItems = [];
         //유저 데이터 true이고, cart에 상품이 있을때
@@ -30,7 +29,7 @@ function Cart(props) {
     return (
         <div className='cartWrapper'>
             <Navmenu></Navmenu>
-            <div className='myCartContainer'>
+            <div className={Product.length == 0 ? 'myCartContainer message':  'myCartContainer'}>
                 <h2 id="myCart">내 카트</h2>
                 
                 <table className='cartTable'>
@@ -63,7 +62,7 @@ function Cart(props) {
                 </table>
            
             </div>
-             {Product.length == 0 && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
+             {Product.length == 0 && <div className='cartProductMessage'>상품정보가 없습니다.</div> }
         </div>
     )
 }
