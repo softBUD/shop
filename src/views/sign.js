@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import {useDispatch} from 'react-redux';
 import {signUpUser} from '../_actions/user_action';
+import Navmenu from './navmenu';
 import {withRouter} from "react-router-dom";
 
 
@@ -106,6 +107,7 @@ function Signup(props) {
 
     return (
         <div>
+        <Navmenu></Navmenu>
         <form onSubmit={onSubmitHandler} id='signUpForm'>
             <label htmlFor="emailID" className='signUpLabel'>이메일</label>
             <div className='emailContainer'>
