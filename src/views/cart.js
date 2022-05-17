@@ -32,7 +32,9 @@ function Cart(props) {
             <Navmenu></Navmenu>
             <div className='myCartContainer'>
                 <h2 id="myCart">내 카트</h2>
+                
                 <table className='cartTable'>
+                {   Product.length >= 1 &&
                     <thead>
                         <tr className='cartTableHead'>
                             <td className='cartTableTd'>이미지</td>
@@ -42,27 +44,26 @@ function Cart(props) {
                             <td className='cartTableTd'>수량</td>
                         </tr>
                     </thead>
-                        <tbody>
-                            
-                                {   Product.length >= 1 &&
-                                    Product.map((item,index)=>{
-                                        return(
-                                        <tr key={index}>
-                                        <td key={item.index} className='cartProductInfo'><img src={`http://localhost:5000/${item.image}`} alt="productImage" /></td>
-                                        <td key={item.title} className='cartProductInfo' id='cartProTitle'>{item.title}</td>
-                                        <td key={item.option} className='cartProductInfo' id='cartProOption'>{item.option}</td>
-                                        <td key={item.price} className='cartProductInfo' id='cartProPrice'>{item.price}</td>
-                                        <td key={item.quantity} className='cartProductInfo' id='cartProQuantity'>{item.quantity}</td>
-                                        </tr>
-                                        )
-                                    })}
-                            
-                            <tr>
-                                {Product.length == 0 && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
+                }
+                 
+                    <tbody>
+                    {   Product.length >= 1 &&
+                        Product.map((item,index)=>{
+                            <tr key={index}>
+                            <td key={item.index} className='cartProductInfo'><img src={`http://34.229.215.70//${item.image}`} alt="productImage" /></td>
+                            <td key={item.title} className='cartProductInfo' id='cartProTitle'>{item.title}</td>
+                            <td key={item.option} className='cartProductInfo' id='cartProOption'>{item.option}</td>
+                            <td key={item.price} className='cartProductInfo' id='cartProPrice'>{item.price}</td>
+                            <td key={item.quantity} className='cartProductInfo' id='cartProQuantity'>{item.quantity}</td>
                             </tr>
-                        </tbody>
+                        })}
+                    </tbody>
+
+                    
                 </table>
+           
             </div>
+             {Product.length == 0 && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
         </div>
     )
 }
