@@ -44,7 +44,7 @@ function Cart(props) {
                     </thead>
                         <tbody>
                             
-                                {   Product.length > 0 &&
+                                {   Product.length >= 1 &&
                                     Product.map((item,index)=>{
                                         return(
                                         <tr key={index}>
