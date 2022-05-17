@@ -58,7 +58,7 @@ function Cart(props) {
                                     })}
                             
                             <tr>
-                                {Product == null && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
+                                {Product.length == 0 && <div className='cartProductInfo'>상품정보가 없습니다.</div> }
                             </tr>
                         </tbody>
                 </table>
