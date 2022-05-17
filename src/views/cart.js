@@ -33,7 +33,7 @@ function Cart(props) {
                 <h2 id="myCart">내 카트</h2>
                 
                 <table className='cartTable'>
-                {   Product.length >= 1 &&
+                {   Product.length !==0 &&
                     <thead>
                         <tr className='cartTableHead'>
                             <td className='cartTableTd'>이미지</td>
@@ -46,7 +46,7 @@ function Cart(props) {
                 }
                  
                     <tbody>
-                    {   Product.length >= 1 &&
+                    {   Product.length !==0  &&
                         Product.map((item,index)=>{
                             <tr key={index}>
                             <td key={item.index} className='cartProductInfo'><img src={`http://34.229.215.70//${item.image}`} alt="productImage" /></td>
