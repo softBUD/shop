@@ -40,7 +40,7 @@ function Detail (props) {
         <div>
         <Navmenu></Navmenu>
         <section className='detailContainer'>
-            <img className='detailImage' src={`http://localhost:5000/${Product.image}`}/>
+            <img className='detailImage' src={`http://localhost:3000/${Product.image}`}/>
             <div className='detailContent'>
                 <div className='detailTitle'>{Product.title}</div>
                 <div className='detailDesc'>분류<span className='detailDescVal'>{Product.category}</span></div>

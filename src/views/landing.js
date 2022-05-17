@@ -113,7 +113,7 @@ function Landing() {
     const productList = product.map((product, index) => {
         return (
             <div key={product._id} className='proListContainer'>
-                <a href={`/api/product/${product._id}`}><img src={`http://localhost:5000/${product.image}`} alt="productImage" className='proListImage'/></a>
+                <a href={`/api/product/${product._id}`}><img src={`${product.image}`} alt="productImage" className='proListImage'/></a>
                 <div className="productDesc"key={product.index}>{product.title}</div>
                 <div className="productDesc" key={product.title}>{product.price}</div>
             </div>
