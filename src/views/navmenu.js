@@ -20,6 +20,7 @@ function Navmenu(props) {
   const onLoghanlder = (e) => {
     if(isLogged === false) {
       alert("로그인 후 이용할 수 있습니다.")
+      window.location.replace("/")
     }
   }
 

@@ -265,6 +265,7 @@ table {
   flex-direction: column;
 }
 .navClick {
+  cursor: pointer;
   width: fit-content;
   margin-top: 10px;
   font-size: 20px;
