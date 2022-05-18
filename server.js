@@ -119,9 +119,11 @@ app.post('/api/product/upload',(req,res)=> {
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
+    //파일 저장할 폴더
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`);
+    //폼에 저장한 필드명
   }
 })
 

@@ -57,11 +57,8 @@ function Upload(props) {
         axios.post("/api/product/image", formData, config)
         .then(response => {
             if(response.data.success) {
-                console.log(response.data);
                 ImageState([...Images,`${response.data.filePath}`])
-                } else {
-                console.log(response.data);
-        }
+                }
     })
 }
 const onSubmitHandler = (e) => {
@@ -143,7 +140,6 @@ const onSubmitHandler = (e) => {
                 <br></br>
                 <input type="text" className='productInput' onChange={proCategoryHandler} value={Category}/>
                 <br></br><input type="submit" value="등록" className='productSubmit'/>
-
             </form>
         </div>
     )

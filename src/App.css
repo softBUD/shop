@@ -369,6 +369,9 @@ table {
   margin-bottom: 50px;
   width: 40vh;
 }
+.signRegMsg {
+  margin-top: 10px;
+}
 .emailContainer {
   width: 100%;
   display: flex;

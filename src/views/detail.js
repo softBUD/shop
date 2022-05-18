@@ -18,7 +18,12 @@ function Detail (props) {
     }
     const clickHandler = (e) => {
         if(isLogged) {
-            dispatch(addToCart(productId,Option))
+            if(Option == "") {
+                alert("상품 옵션을 선택해주세요!")
+            } else {
+                dispatch(addToCart(productId,Option))
+                alert("카트에 상품이 등록되었습니다.")
+            }
         } else {
             alert("로그인해주세요!");
         }     

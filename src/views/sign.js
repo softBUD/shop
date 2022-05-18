@@ -125,14 +125,14 @@ function Signup(props) {
             </div>
             <label htmlFor="name" className='signUpLabel'>이름</label>
             <input type="text"  value={Name} onFocus={onNameMsgHandler} onChange={onNameHandler} className="signUpInput"/>
-            {NameMsg == true && Name.length <2 ? <div>이름은 두글자 이상 입력해주세요</div> : null}
+            {NameMsg == true && Name.length <2 ? <div className='signRegMsg'>이름은 두글자 이상 입력해주세요</div> : null}
             <label htmlFor="PW" className='signUpLabel'>비밀번호</label>
             <input type="password" value={PW} onFocus={onPWMsgHandler} onChange={(e)=>{onPwHandler(e); onPWConMsgHandler(e);}} className="signUpInput"/>
-            {PWMsg == true && PWConMsg == false ? <div>영문자와 숫자 조합필수</div>:null}
-            {PWMsg == true && PW.length < 6 ? <div>6글자 이상</div>:null}
+            {PWMsg == true && PWConMsg == false ? <div className='signRegMsg'>영문자와 숫자 조합필수</div>:null}
+            {PWMsg == true && PW.length < 6 ? <div className='signRegMsg'>6글자 이상</div>:null}
             <label htmlFor="PWchk" className='signUpLabel'>비밀번호 확인</label>
             <input type="password" value={PWCheck} onFocus={onPWCheckMsgHandler} onChange={onPwCheckHandler} className="signUpInput"/>
-            {PWChkMsg == true && PW !== PWCheck ? <div>동일한 비밀번호를 입력해주세요</div>:null}
+            {PWChkMsg == true && PW !== PWCheck ? <div className='signRegMsg'>동일한 비밀번호를 입력해주세요</div>:null}
             <input type="submit" value="회원가입" id='signUpBtn'/>
         </form>
         </div>
