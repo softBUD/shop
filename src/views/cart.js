@@ -18,7 +18,7 @@ function Cart(props) {
                     //상품이 들어있으면 상품들의 id값 배열로 넣어줌
                     cartItems.push(item.id)
                 })
-                //상품 아이디, 유저정보 안의 카트 데이터 넣어서 실행
+                //상품 아이디담은 배열, 유저정보 안의 카트 데이터 넣어서 실행
                 dispatch(getCartItems(cartItems, props.user.userData.cart))
                 .then((response)=> {
                     setProduct(response.payload);

@@ -210,15 +210,13 @@ app.post("/api/product/addToCart", auth, (req,res) => {
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
     let duplicate = false;
 
-    console.log(userInfo)
-
     userInfo.cart.forEach((item) => {
         if (item.id == req.body.productId) {
             duplicate = true;
         }
     })
 
-
+    //이미 같은 상품이 있을때
     if (duplicate) {
         User.findOneAndUpdate(
             { _id: req.user._id, "cart.id": req.body.productId },
@@ -229,7 +227,7 @@ app.post("/api/product/addToCart", auth, (req,res) => {
                 res.status(200).json(userInfo.cart)
             }
         )
-    } else {
+    } else { //같은 상품이 없을때
         User.findOneAndUpdate(
             { _id: req.user._id },
             {
