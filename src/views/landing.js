@@ -1,6 +1,5 @@
 import React, {useEffect,useState} from 'react'
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import axios from 'axios'
 import main from "../images/main.jpg";
 import main2 from "../images/main2.jpg";

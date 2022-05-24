@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import searchIcon from "../images/search.png"
 
 
 function Search(props) {

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {useDispatch} from 'react-redux';
 import {signUpUser} from '../_actions/user_action';
 import Navmenu from './navmenu';
