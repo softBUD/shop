@@ -42,7 +42,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "export PORT=80 && react-scripts start",
+    "start": "react-scripts start",
     "dev": "concurrently \"node server.js\" \"npm run start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
