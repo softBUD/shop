@@ -33,17 +33,17 @@ function App() {
 
   return (
   <BrowserRouter>
-  <Suspense fallback={<div>페이지 로딩중...</div>}>
-  <Switch>
-    <Route path='/user/login' component={Auth(Login, false)} />
-    <Route path="/user/signup" component={Auth(Signup,false)}></Route>
-    <Route path="/upload" component={Auth(Upload,true)}/>
-    <Route path="/api/cart" component={Auth(Cart,true)}/>
-    <Route path="/api/product/:productId" component={Auth(Detail,null)}></Route>
-    <Route path="/" component={Auth(Landing, null)}/>
-  </Switch>
-  <Footer></Footer>
-  </Suspense>
+    <Suspense fallback={<div>페이지 로딩중...</div>}>
+    <Switch>
+      <Route path='/user/login' component={Auth(Login, false)} />
+      <Route path="/user/signup" component={Auth(Signup,false)}></Route>
+      <Route path="/upload" component={Auth(Upload,true)}/>
+      <Route path="/api/cart" component={Auth(Cart,true)}/>
+      <Route path="/api/product/:productId" component={Auth(Detail,null)}></Route>
+      <Route path="/" component={Auth(Landing, null)}/>
+    </Switch>
+    <Footer></Footer>
+    </Suspense>
   </BrowserRouter>
   );
 }
