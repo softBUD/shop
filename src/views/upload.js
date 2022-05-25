@@ -113,7 +113,7 @@ const onSubmitHandler = (e) => {
                             Images.map((file,index) => (
                                 <div key={index} className="proInputImageCon">
                                     <img onClick={onDeleteHandler} className="proInputImage"
-                                      src={`http://34.229.215.70:3000/${file}`} />
+                                      src={`http://67.202.5.187:3000/${file}`} />
                                 </div>
                                 ))
                         }
