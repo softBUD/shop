@@ -42,6 +42,7 @@ function Upload(props) {
         isDragAccept,
         isDragReject
       } = useDropzone({
+        maxFilesize: 2,
         accept: '.jpeg,.png'
       });
 
@@ -53,6 +54,7 @@ function Upload(props) {
         }
         
         formData.append("file",files[0])
+
 
         axios.post("/api/product/image", formData, config)
         .then(response => {
