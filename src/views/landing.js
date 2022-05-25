@@ -2,8 +2,6 @@ import React, {useEffect,useState} from 'react'
 import { useSelector } from 'react-redux';
 import axios from 'axios'
 import main from "../images/main.jpg";
-import main2 from "../images/main2.jpg";
-import main3 from "../images/main3.jpg";
 import {withRouter} from "react-router-dom";
 import Search from './search';
 import styled, {keyframes} from "styled-components";
@@ -19,7 +17,7 @@ function Landing() {
     const [Skip, setSkip] = useState(0) //데이터 시작할 부분
     const [Limit, setLimit] = useState(6) // 몇개의 데이터를 가져올지
     const [Total,setTotal] =useState(0);
-    const [Image,setImage] = useState([main,main2,main3]);
+    const [Image,setImage] = useState([main]);
     const [product,productState] = useState([]);
     const [searchTerm,setSearchTerm] = useState("");
 
