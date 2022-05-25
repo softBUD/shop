@@ -1,5 +1,4 @@
 import React, { useState,Suspense} from 'react';
-import {useDispatch} from 'react-redux';
 import { Route, BrowserRouter,withRouter, Switch} from 'react-router-dom';
 import Cart from './views/cart.js';
 import Detail from './views/detail.js';
@@ -13,10 +12,7 @@ import './App.css';
 
 
 function App() {
-  
 
-
-  const dispatch = useDispatch();
   const [isLoggedIn,loggedInState] = useState(null);
   const [more,moreState] = useState(false);
   const [inven,invenState] = useState([50,60,70,80,90,100]);
