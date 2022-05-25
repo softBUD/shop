@@ -117,7 +117,7 @@ function Signup(props) {
                 <option value="none" hidden>선택하기</option>
                 {options.map((option) => (
                     <option 
-                    key={option.value}
+                    key={0}
                     value={option.value}
                     >{option.value}</option>
                 ))}

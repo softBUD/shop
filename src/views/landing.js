@@ -10,14 +10,10 @@ import Navmenu from './navmenu';
 
 
 function Landing() {
-
-    const isLogged = useSelector(state=>state.user.isLoggedIn);
-    const TOTAL_SLIDES = 2;
     const [scroll,setScroll] = useState(0);
     const [Skip, setSkip] = useState(0) //데이터 시작할 부분
     const [Limit, setLimit] = useState(6) // 몇개의 데이터를 가져올지
     const [Total,setTotal] =useState(0);
-    const [Image,setImage] = useState([main]);
     const [product,productState] = useState([]);
     const [searchTerm,setSearchTerm] = useState("");
 
@@ -111,7 +107,7 @@ function Landing() {
         return (
             <div key={product._id} className='proListContainer'>
                 <a href={`/api/product/${product._id}`}><img src={`${product.image}`} alt="productImage" className='proListImage'/></a>
-                <div className="productDesc"key={product.index}>{product.title}</div>
+                <div className="productDesc"key={index}>{product.title}</div>
                 <div className="productDesc" key={product.title}>{product.price}</div>
             </div>
         )
